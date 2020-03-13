@@ -1,0 +1,2432 @@
+<wsdl:definitions
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+	xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex"
+	xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy"
+	xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:tns="BahnCard.IdeasConnector.Contracts"
+	xmlns:wsa10="http://www.w3.org/2005/08/addressing"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="ConnectorServiceBahnCard" targetNamespace="BahnCard.IdeasConnector.Contracts">
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SymmetricBinding
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<wsp:Policy>
+						<sp:ProtectionToken>
+							<wsp:Policy>
+								<sp:SecureConversationToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+									<wsp:Policy>
+										<sp:RequireDerivedKeys/>
+										<sp:BootstrapPolicy>
+											<wsp:Policy>
+												<sp:SignedParts>
+													<sp:Body/>
+													<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+													<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+													<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+													<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+													<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+													<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+													<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+												</sp:SignedParts>
+												<sp:EncryptedParts>
+													<sp:Body/>
+												</sp:EncryptedParts>
+												<sp:SymmetricBinding>
+													<wsp:Policy>
+														<sp:ProtectionToken>
+															<wsp:Policy>
+																<sp:SpnegoContextToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+																	<wsp:Policy>
+																		<sp:RequireDerivedKeys/>
+																	</wsp:Policy>
+																</sp:SpnegoContextToken>
+															</wsp:Policy>
+														</sp:ProtectionToken>
+														<sp:AlgorithmSuite>
+															<wsp:Policy>
+																<sp:Basic256/>
+															</wsp:Policy>
+														</sp:AlgorithmSuite>
+														<sp:Layout>
+															<wsp:Policy>
+																<sp:Strict/>
+															</wsp:Policy>
+														</sp:Layout>
+														<sp:IncludeTimestamp/>
+														<sp:EncryptSignature/>
+														<sp:OnlySignEntireHeadersAndBody/>
+													</wsp:Policy>
+												</sp:SymmetricBinding>
+												<sp:Wss11>
+													<wsp:Policy/>
+												</sp:Wss11>
+												<sp:Trust10>
+													<wsp:Policy>
+														<sp:MustSupportIssuedTokens/>
+														<sp:RequireClientEntropy/>
+														<sp:RequireServerEntropy/>
+													</wsp:Policy>
+												</sp:Trust10>
+											</wsp:Policy>
+										</sp:BootstrapPolicy>
+									</wsp:Policy>
+								</sp:SecureConversationToken>
+							</wsp:Policy>
+						</sp:ProtectionToken>
+						<sp:AlgorithmSuite>
+							<wsp:Policy>
+								<sp:Basic256/>
+							</wsp:Policy>
+						</sp:AlgorithmSuite>
+						<sp:Layout>
+							<wsp:Policy>
+								<sp:Strict/>
+							</wsp:Policy>
+						</sp:Layout>
+						<sp:IncludeTimestamp/>
+						<sp:EncryptSignature/>
+						<sp:OnlySignEntireHeadersAndBody/>
+					</wsp:Policy>
+				</sp:SymmetricBinding>
+				<sp:Wss11
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<wsp:Policy/>
+				</sp:Wss11>
+				<sp:Trust10
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<wsp:Policy>
+						<sp:MustSupportIssuedTokens/>
+						<sp:RequireClientEntropy/>
+						<sp:RequireServerEntropy/>
+					</wsp:Policy>
+				</sp:Trust10>
+				<wsaw:UsingAddressing/>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_GetRequestInformation_Input_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+					<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+				</sp:SignedParts>
+				<sp:EncryptedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+				</sp:EncryptedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_GetRequestInformation_output_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+					<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+				</sp:SignedParts>
+				<sp:EncryptedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+				</sp:EncryptedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_GetRequestInformation_ServiceFaultFault_Fault">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+					<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+				</sp:SignedParts>
+				<sp:EncryptedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+				</sp:EncryptedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_StoreRequestResultData_Input_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+					<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+				</sp:SignedParts>
+				<sp:EncryptedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+				</sp:EncryptedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_StoreRequestResultData_output_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+					<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+				</sp:SignedParts>
+				<sp:EncryptedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+				</sp:EncryptedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_StoreRequestResultData_ServiceFaultFault_Fault">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+					<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+				</sp:SignedParts>
+				<sp:EncryptedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+				</sp:EncryptedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_CommitMultipleRequestStoreCalls_Input_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+					<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+				</sp:SignedParts>
+				<sp:EncryptedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+				</sp:EncryptedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_CommitMultipleRequestStoreCalls_output_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+					<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+				</sp:SignedParts>
+				<sp:EncryptedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+				</sp:EncryptedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_CommitMultipleRequestStoreCalls_ServiceFaultFault_Fault">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+					<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+				</sp:SignedParts>
+				<sp:EncryptedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+				</sp:EncryptedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_GetRequestInformationXml_Input_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+					<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+				</sp:SignedParts>
+				<sp:EncryptedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+				</sp:EncryptedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_GetRequestInformationXml_output_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+					<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+				</sp:SignedParts>
+				<sp:EncryptedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+				</sp:EncryptedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_GetRequestInformationJson_Input_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+					<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+				</sp:SignedParts>
+				<sp:EncryptedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+				</sp:EncryptedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="WSHttpBinding_BahnCardConnectorService_GetRequestInformationJson_output_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:SignedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+					<sp:Header Name="To" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="From" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="FaultTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="ReplyTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="MessageID" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="RelatesTo" Namespace="http://www.w3.org/2005/08/addressing"/>
+					<sp:Header Name="Action" Namespace="http://www.w3.org/2005/08/addressing"/>
+				</sp:SignedParts>
+				<sp:EncryptedParts
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<sp:Body/>
+				</sp:EncryptedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsdl:types>
+		<xs:schema
+			xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			xmlns:tns="Sps.Utils.Ideas.ConnectorService.Contracts" elementFormDefault="qualified" targetNamespace="Sps.Utils.Ideas.ConnectorService.Contracts">
+			<xs:import namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts"/>
+			<xs:import namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+			<xs:element name="GetRequestInformation">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element
+							xmlns:q1="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" minOccurs="0" name="request" nillable="true" type="q1:GetRequestInformationRequest"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:complexType name="AdditionalRequestInformation">
+					<xs:complexContent mixed="false">
+						<xs:extension
+							xmlns:q2="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" base="q2:AdditionalRequestInformationBase">
+							<xs:sequence/>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+				<xs:element name="AdditionalRequestInformation" nillable="true" type="tns:AdditionalRequestInformation"/>
+				<xs:element name="GetRequestInformationResponse">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element
+								xmlns:q3="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" minOccurs="0" name="GetRequestInformationResult" nillable="true" type="q3:GetRequestInformationResponse"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="StoreRequestResultData">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element
+									xmlns:q4="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" minOccurs="0" name="request" nillable="true" type="q4:StoreRequestResultDataRequest"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:complexType name="AdditionalStoreRequestInformationEnvelope">
+							<xs:annotation>
+								<xs:appinfo>
+									<GenericType
+										xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="AdditionalStoreRequestInformationEnvelope" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts">
+										<GenericParameter Name="IdeasConnectorServiceDataExchange" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+									</GenericType>
+								</xs:appinfo>
+							</xs:annotation>
+							<xs:complexContent mixed="false">
+								<xs:extension
+									xmlns:q5="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" base="q5:AdditionalStoreRequestInformationEnvelopeBaseOfIdeasConnectorServiceDataExchange">
+									<xs:sequence>
+										<xs:element
+											xmlns:q6="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records" minOccurs="0" name="IdeasConnectorServiceDataExchange" nillable="true" type="q6:IdeasConnectorServiceDataExchange"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+							<xs:element name="AdditionalStoreRequestInformationEnvelope" nillable="true" type="tns:AdditionalStoreRequestInformationEnvelope"/>
+							<xs:element name="StoreRequestResultDataResponse">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element
+											xmlns:q7="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" minOccurs="0" name="StoreRequestResultDataResult" nillable="true" type="q7:StoreRequestResultDataResponse"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:complexType name="AdditionalStoreResponseInformationEnvelope">
+									<xs:annotation>
+										<xs:appinfo>
+											<GenericType
+												xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="AdditionalStoreResponseInformationEnvelope" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts">
+												<GenericParameter Name="AdditionalStoreResponseInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+											</GenericType>
+										</xs:appinfo>
+									</xs:annotation>
+									<xs:complexContent mixed="false">
+										<xs:extension
+											xmlns:q8="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" base="q8:AdditionalStoreResponseInformationEnvelopeBaseOfAdditionalStoreResponseInformation">
+											<xs:sequence>
+												<xs:element minOccurs="0" name="AdditionalResponseInformation" nillable="true" type="tns:AdditionalStoreResponseInformation"/>
+											</xs:sequence>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+								<xs:element name="AdditionalStoreResponseInformationEnvelope" nillable="true" type="tns:AdditionalStoreResponseInformationEnvelope"/>
+								<xs:complexType name="AdditionalStoreResponseInformation">
+									<xs:complexContent mixed="false">
+										<xs:extension
+											xmlns:q9="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" base="q9:AdditionalStoreResponseInformationBase">
+											<xs:sequence/>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+								<xs:element name="AdditionalStoreResponseInformation" nillable="true" type="tns:AdditionalStoreResponseInformation"/>
+								<xs:element name="CommitMultipleRequestStoreCalls">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element
+												xmlns:q10="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" minOccurs="0" name="request" nillable="true" type="q10:CommitMultipleRequestStoreCallsRequest"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:complexType name="AdditionalCommitMultipleRequestStoreInformation">
+										<xs:complexContent mixed="false">
+											<xs:extension
+												xmlns:q11="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" base="q11:AdditionalCommitMultipleRequestStoreInformationBase">
+												<xs:sequence/>
+											</xs:extension>
+										</xs:complexContent>
+									</xs:complexType>
+									<xs:element name="AdditionalCommitMultipleRequestStoreInformation" nillable="true" type="tns:AdditionalCommitMultipleRequestStoreInformation"/>
+									<xs:element name="CommitMultipleRequestStoreCallsResponse">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element
+													xmlns:q12="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" minOccurs="0" name="CommitMultipleRequestStoreCallsResult" nillable="true" type="q12:CommitMultipleRequestStoreCallsResponse"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:complexType name="AdditionalCommitMultipleRequestResponseInformationEnvelope">
+											<xs:annotation>
+												<xs:appinfo>
+													<GenericType
+														xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="AdditionalCommitMultipleRequestResponseInformationEnvelope" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts">
+														<GenericParameter Name="AdditionalCommitMultipleRequestResponseInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+													</GenericType>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:complexContent mixed="false">
+												<xs:extension
+													xmlns:q13="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" base="q13:AdditionalCommitMultipleRequestResponseInformationEnvelopeBaseOfAdditionalCommitMultipleRequestResponseInformation">
+													<xs:sequence>
+														<xs:element minOccurs="0" name="AdditionalResponseInformation" nillable="true" type="tns:AdditionalCommitMultipleRequestResponseInformation"/>
+													</xs:sequence>
+												</xs:extension>
+											</xs:complexContent>
+										</xs:complexType>
+										<xs:element name="AdditionalCommitMultipleRequestResponseInformationEnvelope" nillable="true" type="tns:AdditionalCommitMultipleRequestResponseInformationEnvelope"/>
+										<xs:complexType name="AdditionalCommitMultipleRequestResponseInformation">
+											<xs:complexContent mixed="false">
+												<xs:extension
+													xmlns:q14="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" base="q14:AdditionalCommitMultipleRequestResponseInformationBase">
+													<xs:sequence/>
+												</xs:extension>
+											</xs:complexContent>
+										</xs:complexType>
+										<xs:element name="AdditionalCommitMultipleRequestResponseInformation" nillable="true" type="tns:AdditionalCommitMultipleRequestResponseInformation"/>
+									</xs:schema>
+									<xs:schema
+										xmlns:xs="http://www.w3.org/2001/XMLSchema"
+										xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/">
+										<xs:element name="anyType" nillable="true" type="xs:anyType"/>
+										<xs:element name="anyURI" nillable="true" type="xs:anyURI"/>
+										<xs:element name="base64Binary" nillable="true" type="xs:base64Binary"/>
+										<xs:element name="boolean" nillable="true" type="xs:boolean"/>
+										<xs:element name="byte" nillable="true" type="xs:byte"/>
+										<xs:element name="dateTime" nillable="true" type="xs:dateTime"/>
+										<xs:element name="decimal" nillable="true" type="xs:decimal"/>
+										<xs:element name="double" nillable="true" type="xs:double"/>
+										<xs:element name="float" nillable="true" type="xs:float"/>
+										<xs:element name="int" nillable="true" type="xs:int"/>
+										<xs:element name="long" nillable="true" type="xs:long"/>
+										<xs:element name="QName" nillable="true" type="xs:QName"/>
+										<xs:element name="short" nillable="true" type="xs:short"/>
+										<xs:element name="string" nillable="true" type="xs:string"/>
+										<xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte"/>
+										<xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt"/>
+										<xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong"/>
+										<xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort"/>
+										<xs:element name="char" nillable="true" type="tns:char"/>
+										<xs:simpleType name="char">
+											<xs:restriction base="xs:int"/>
+										</xs:simpleType>
+										<xs:element name="duration" nillable="true" type="tns:duration"/>
+										<xs:simpleType name="duration">
+											<xs:restriction base="xs:duration">
+												<xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?"/>
+												<xs:minInclusive value="-P10675199DT2H48M5.4775808S"/>
+												<xs:maxInclusive value="P10675199DT2H48M5.4775807S"/>
+											</xs:restriction>
+										</xs:simpleType>
+										<xs:element name="guid" nillable="true" type="tns:guid"/>
+										<xs:simpleType name="guid">
+											<xs:restriction base="xs:string">
+												<xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}"/>
+											</xs:restriction>
+										</xs:simpleType>
+										<xs:attribute name="FactoryType" type="xs:QName"/>
+										<xs:attribute name="Id" type="xs:ID"/>
+										<xs:attribute name="Ref" type="xs:IDREF"/>
+									</xs:schema>
+									<xs:schema
+										xmlns:xs="http://www.w3.org/2001/XMLSchema"
+										xmlns:tns="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts"
+										xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+										<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+										<xs:import namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+										<xs:import namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+										<xs:complexType name="GetRequestInformationRequest">
+											<xs:annotation>
+												<xs:appinfo>
+													<GenericType
+														xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="GetRequestInformationRequest" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+														<GenericParameter Name="AdditionalRequestInformationEnvelope" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+															<GenericParameter Name="AdditionalRequestInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/></GenericParameter>
+														<GenericParameter Name="AdditionalRequestInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+													</GenericType>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:complexContent mixed="false">
+												<xs:extension base="tns:GetRequestInformationRequestBaseOfAdditionalRequestInformation">
+													<xs:sequence/>
+												</xs:extension>
+											</xs:complexContent>
+										</xs:complexType>
+										<xs:element name="GetRequestInformationRequest" nillable="true" type="tns:GetRequestInformationRequest"/>
+										<xs:complexType name="GetRequestInformationRequestBaseOfAdditionalRequestInformation">
+											<xs:annotation>
+												<xs:appinfo>
+													<GenericType
+														xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="GetRequestInformationRequestBaseOf{1}" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+														<GenericParameter Name="AdditionalRequestInformationEnvelope" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+															<GenericParameter Name="AdditionalRequestInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/></GenericParameter>
+														<GenericParameter Name="AdditionalRequestInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+													</GenericType>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:sequence>
+												<xs:element minOccurs="0" name="RequestId" type="ser:guid"/>
+												<xs:element minOccurs="0" name="AdditionalData" nillable="true" type="tns:AdditionalRequestInformationEnvelope"/>
+												<xs:element minOccurs="0" name="ProjectName" nillable="true" type="xs:string"/>
+											</xs:sequence>
+										</xs:complexType>
+										<xs:element name="GetRequestInformationRequestBaseOfAdditionalRequestInformation" nillable="true" type="tns:GetRequestInformationRequestBaseOfAdditionalRequestInformation"/>
+										<xs:complexType name="AdditionalRequestInformationEnvelope">
+											<xs:annotation>
+												<xs:appinfo>
+													<GenericType
+														xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="AdditionalRequestInformationEnvelope" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+														<GenericParameter Name="AdditionalRequestInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+													</GenericType>
+												</xs:appinfo>
+											</xs:annotation>
+											<xs:complexContent mixed="false">
+												<xs:extension base="tns:AdditionalRequestInformationEnvelopeBaseOfAdditionalRequestInformation">
+													<xs:sequence>
+														<xs:element
+															xmlns:q1="Sps.Utils.Ideas.ConnectorService.Contracts" minOccurs="0" name="AdditionalRequestInformation" nillable="true" type="q1:AdditionalRequestInformation"/>
+														</xs:sequence>
+													</xs:extension>
+												</xs:complexContent>
+											</xs:complexType>
+											<xs:element name="AdditionalRequestInformationEnvelope" nillable="true" type="tns:AdditionalRequestInformationEnvelope"/>
+											<xs:complexType name="AdditionalRequestInformationEnvelopeBaseOfAdditionalRequestInformation">
+												<xs:annotation>
+													<xs:appinfo>
+														<GenericType
+															xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="AdditionalRequestInformationEnvelopeBaseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+															<GenericParameter Name="AdditionalRequestInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+														</GenericType>
+													</xs:appinfo>
+												</xs:annotation>
+												<xs:sequence/>
+											</xs:complexType>
+											<xs:element name="AdditionalRequestInformationEnvelopeBaseOfAdditionalRequestInformation" nillable="true" type="tns:AdditionalRequestInformationEnvelopeBaseOfAdditionalRequestInformation"/>
+											<xs:complexType name="AdditionalRequestInformationBase">
+												<xs:sequence/>
+											</xs:complexType>
+											<xs:element name="AdditionalRequestInformationBase" nillable="true" type="tns:AdditionalRequestInformationBase"/>
+											<xs:complexType name="GetRequestInformationResponse">
+												<xs:annotation>
+													<xs:appinfo>
+														<GenericType
+															xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="GetRequestInformationResponse" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+															<GenericParameter Name="AdditionalRequestInformationEnvelope" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+															<GenericParameter Name="AdditionalRequestInformation" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+															<GenericParameter Name="AdditionalFrameInformationEnvelope" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+															<GenericParameter Name="AdditionalFrameInformation" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+														</GenericType>
+													</xs:appinfo>
+												</xs:annotation>
+												<xs:complexContent mixed="false">
+													<xs:extension base="tns:GetRequestInformationResponseBaseOfAdditionalRequestInformationOfAdditionalFrameInformation">
+														<xs:sequence/>
+													</xs:extension>
+												</xs:complexContent>
+											</xs:complexType>
+											<xs:element name="GetRequestInformationResponse" nillable="true" type="tns:GetRequestInformationResponse"/>
+											<xs:complexType name="GetRequestInformationResponseBaseOfAdditionalRequestInformationOfAdditionalFrameInformation">
+												<xs:annotation>
+													<xs:appinfo>
+														<GenericType
+															xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="GetRequestInformationResponseBaseOf{1}Of{4}" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+															<GenericParameter Name="AdditionalRequestInformationEnvelope" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+															<GenericParameter Name="AdditionalRequestInformation" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+															<GenericParameter Name="FrameInformation" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																<GenericParameter Name="AdditionalFrameInformationEnvelope" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+																<GenericParameter Name="AdditionalFrameInformation" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/></GenericParameter>
+															<GenericParameter Name="AdditionalFrameInformationEnvelope" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+															<GenericParameter Name="AdditionalFrameInformation" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+															<GenericParameter Name="GlobalFileInformation" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts"/>
+															<GenericParameter Name="FileVersion" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts"/>
+														</GenericType>
+													</xs:appinfo>
+												</xs:annotation>
+												<xs:sequence>
+													<xs:element name="RequestId" type="ser:guid"/>
+													<xs:element minOccurs="0" name="RequestDueDateTime" nillable="true" type="xs:dateTime"/>
+													<xs:element minOccurs="0" name="RequestInboxDateTime" nillable="true" type="xs:dateTime"/>
+													<xs:element minOccurs="0" name="RequestScanDateTime" nillable="true" type="xs:dateTime"/>
+													<xs:element minOccurs="0" name="ScanJobName" nillable="true" type="xs:string"/>
+													<xs:element minOccurs="0" name="GlobalFiles" nillable="true" type="tns:ArrayOfGlobalFileInformation"/>
+													<xs:element name="Frames" nillable="true" type="tns:ArrayOfFrameInformation"/>
+													<xs:element name="RequestEntryMode" type="tns:RequestEntryModes"/>
+													<xs:element minOccurs="0" name="Annotation" nillable="true" type="xs:string"/>
+													<xs:element
+														xmlns:q2="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records" minOccurs="0" name="AdditionalInformation" nillable="true" type="q2:AdditionalRequestInformationEnvelope"/>
+													</xs:sequence>
+												</xs:complexType>
+												<xs:element name="GetRequestInformationResponseBaseOfAdditionalRequestInformationOfAdditionalFrameInformation" nillable="true" type="tns:GetRequestInformationResponseBaseOfAdditionalRequestInformationOfAdditionalFrameInformation"/>
+												<xs:complexType name="ArrayOfGlobalFileInformation">
+													<xs:sequence>
+														<xs:element minOccurs="0" maxOccurs="unbounded" name="GlobalFileInformation" nillable="true" type="tns:GlobalFileInformation"/>
+													</xs:sequence>
+												</xs:complexType>
+												<xs:element name="ArrayOfGlobalFileInformation" nillable="true" type="tns:ArrayOfGlobalFileInformation"/>
+												<xs:complexType name="GlobalFileInformation">
+													<xs:complexContent mixed="false">
+														<xs:extension base="tns:GlobalFileInformationBaseOfFileVersion">
+															<xs:sequence/>
+														</xs:extension>
+													</xs:complexContent>
+												</xs:complexType>
+												<xs:element name="GlobalFileInformation" nillable="true" type="tns:GlobalFileInformation"/>
+												<xs:complexType name="GlobalFileInformationBaseOfFileVersion">
+													<xs:annotation>
+														<xs:appinfo>
+															<GenericType
+																xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="GlobalFileInformationBaseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																<GenericParameter Name="FileVersion" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts"/>
+															</GenericType>
+														</xs:appinfo>
+													</xs:annotation>
+													<xs:sequence>
+														<xs:element name="FileId" type="ser:guid"/>
+														<xs:element name="FileVersions" nillable="true" type="tns:ArrayOfFileVersion"/>
+													</xs:sequence>
+												</xs:complexType>
+												<xs:element name="GlobalFileInformationBaseOfFileVersion" nillable="true" type="tns:GlobalFileInformationBaseOfFileVersion"/>
+												<xs:complexType name="ArrayOfFileVersion">
+													<xs:sequence>
+														<xs:element minOccurs="0" maxOccurs="unbounded" name="FileVersion" nillable="true" type="tns:FileVersion"/>
+													</xs:sequence>
+												</xs:complexType>
+												<xs:element name="ArrayOfFileVersion" nillable="true" type="tns:ArrayOfFileVersion"/>
+												<xs:complexType name="FileVersion">
+													<xs:complexContent mixed="false">
+														<xs:extension base="tns:FileVersionBase">
+															<xs:sequence/>
+														</xs:extension>
+													</xs:complexContent>
+												</xs:complexType>
+												<xs:element name="FileVersion" nillable="true" type="tns:FileVersion"/>
+												<xs:complexType name="FileVersionBase">
+													<xs:sequence>
+														<xs:element name="FileVersionId" type="ser:guid"/>
+														<xs:element name="FileRetrievalUrl" nillable="true" type="xs:string"/>
+														<xs:element name="FileType" type="tns:ContentTypes"/>
+														<xs:element name="ColorDepth" type="tns:ColorDepths"/>
+														<xs:element minOccurs="0" name="ExternalFileName" nillable="true" type="xs:string">
+															<xs:annotation>
+																<xs:appinfo>
+																	<DefaultValue
+																		xmlns="http://schemas.microsoft.com/2003/10/Serialization/" EmitDefaultValue="false"/>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+													<xs:element name="FileVersionBase" nillable="true" type="tns:FileVersionBase"/>
+													<xs:simpleType name="ContentTypes">
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="Other"/>
+															<xs:enumeration value="ImageTiff"/>
+															<xs:enumeration value="ImageJpeg"/>
+															<xs:enumeration value="ImageGif">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="ImagePng">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">11
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="ImageThumbnail">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">20
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="ImageG3Fax">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">21
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="ImageOther">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">30
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="ApplicationOctetStream">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">50
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="ApplicationPdf">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">51
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="ApplicationXml">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">55
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="ApplicationZip">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">60
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="ApplicationPgpEncrypted">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">65
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="TextHtml">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">90
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="TextRtf">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">91
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="TextPlain">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">92
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="TextXml">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">95
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+														</xs:restriction>
+													</xs:simpleType>
+													<xs:element name="ContentTypes" nillable="true" type="tns:ContentTypes"/>
+													<xs:simpleType name="ColorDepths">
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="NotApplicable"/>
+															<xs:enumeration value="Unknown">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="OneBitPerPixel">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="TwoBitsPerPixel">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="FourBitsPerPixel"/>
+															<xs:enumeration value="EightBitsPerPixel">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">8
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="SixteenBitsPerPixel">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">16
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="TwentyFourBitsPerPixel">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">24
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+															<xs:enumeration value="ThirtyTwoBitsPerPixel">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<EnumerationValue
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/">32
+																		</EnumerationValue>
+																	</xs:appinfo>
+																</xs:annotation>
+															</xs:enumeration>
+														</xs:restriction>
+													</xs:simpleType>
+													<xs:element name="ColorDepths" nillable="true" type="tns:ColorDepths"/>
+													<xs:complexType name="ArrayOfFrameInformation">
+														<xs:sequence>
+															<xs:element minOccurs="0" maxOccurs="unbounded" name="FrameInformation" nillable="true" type="tns:FrameInformation"/>
+														</xs:sequence>
+													</xs:complexType>
+													<xs:element name="ArrayOfFrameInformation" nillable="true" type="tns:ArrayOfFrameInformation"/>
+													<xs:complexType name="FrameInformation">
+														<xs:annotation>
+															<xs:appinfo>
+																<GenericType
+																	xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="FrameInformation" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																	<GenericParameter Name="AdditionalFrameInformationEnvelope" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+																	<GenericParameter Name="AdditionalFrameInformation" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+																</GenericType>
+															</xs:appinfo>
+														</xs:annotation>
+														<xs:complexContent mixed="false">
+															<xs:extension base="tns:FrameInformationBaseOfAdditionalFrameInformation">
+																<xs:sequence/>
+															</xs:extension>
+														</xs:complexContent>
+													</xs:complexType>
+													<xs:element name="FrameInformation" nillable="true" type="tns:FrameInformation"/>
+													<xs:complexType name="FrameInformationBaseOfAdditionalFrameInformation">
+														<xs:annotation>
+															<xs:appinfo>
+																<GenericType
+																	xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="FrameInformationBaseOf{2}" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																	<GenericParameter Name="FileVersion" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts"/>
+																	<GenericParameter Name="AdditionalFrameInformationEnvelope" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+																	<GenericParameter Name="AdditionalFrameInformation" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+																</GenericType>
+															</xs:appinfo>
+														</xs:annotation>
+														<xs:sequence>
+															<xs:element name="FrameIndex" type="xs:unsignedInt"/>
+															<xs:element name="FrameType" type="tns:FrameTypes"/>
+															<xs:element name="FrameId" type="ser:guid"/>
+															<xs:element name="FileVersions" nillable="true" type="tns:ArrayOfFileVersion"/>
+															<xs:element minOccurs="0" name="Pagination" nillable="true" type="xs:string"/>
+															<xs:element name="IsPossibleEmptyFrame" type="xs:boolean"/>
+															<xs:element name="IsPossibleBadScan" type="xs:boolean"/>
+															<xs:element
+																xmlns:q3="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records" minOccurs="0" name="AdditionalInformation" nillable="true" type="q3:AdditionalFrameInformationEnvelope"/>
+															</xs:sequence>
+														</xs:complexType>
+														<xs:element name="FrameInformationBaseOfAdditionalFrameInformation" nillable="true" type="tns:FrameInformationBaseOfAdditionalFrameInformation"/>
+														<xs:simpleType name="FrameTypes">
+															<xs:restriction base="xs:string">
+																<xs:enumeration value="Unknown"/>
+																<xs:enumeration value="FrontSide"/>
+																<xs:enumeration value="RearSide"/>
+															</xs:restriction>
+														</xs:simpleType>
+														<xs:element name="FrameTypes" nillable="true" type="tns:FrameTypes"/>
+														<xs:complexType name="AdditionalFrameInformationEnvelopeBaseOfAdditionalFrameInformation">
+															<xs:annotation>
+																<xs:appinfo>
+																	<GenericType
+																		xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="AdditionalFrameInformationEnvelopeBaseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																		<GenericParameter Name="AdditionalFrameInformation" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+																	</GenericType>
+																</xs:appinfo>
+															</xs:annotation>
+															<xs:sequence/>
+														</xs:complexType>
+														<xs:element name="AdditionalFrameInformationEnvelopeBaseOfAdditionalFrameInformation" nillable="true" type="tns:AdditionalFrameInformationEnvelopeBaseOfAdditionalFrameInformation"/>
+														<xs:simpleType name="RequestEntryModes">
+															<xs:restriction base="xs:string">
+																<xs:enumeration value="Normal">
+																	<xs:annotation>
+																		<xs:appinfo>
+																			<EnumerationValue
+																				xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1
+																			</EnumerationValue>
+																		</xs:appinfo>
+																	</xs:annotation>
+																</xs:enumeration>
+																<xs:enumeration value="ReEnteredRequest">
+																	<xs:annotation>
+																		<xs:appinfo>
+																			<EnumerationValue
+																				xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2
+																			</EnumerationValue>
+																		</xs:appinfo>
+																	</xs:annotation>
+																</xs:enumeration>
+															</xs:restriction>
+														</xs:simpleType>
+														<xs:element name="RequestEntryModes" nillable="true" type="tns:RequestEntryModes"/>
+														<xs:complexType name="ServiceFault">
+															<xs:sequence>
+																<xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string"/>
+																<xs:element minOccurs="0" name="ErrorDetails" nillable="true" type="xs:string"/>
+															</xs:sequence>
+														</xs:complexType>
+														<xs:element name="ServiceFault" nillable="true" type="tns:ServiceFault"/>
+														<xs:complexType name="StoreRequestResultDataRequest">
+															<xs:annotation>
+																<xs:appinfo>
+																	<GenericType
+																		xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="StoreRequestResultDataRequest" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																		<GenericParameter Name="AdditionalStoreRequestInformationEnvelope" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts">
+																			<GenericParameter Name="IdeasConnectorServiceDataExchange" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/></GenericParameter>
+																		<GenericParameter Name="IdeasConnectorServiceDataExchange" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+																	</GenericType>
+																</xs:appinfo>
+															</xs:annotation>
+															<xs:complexContent mixed="false">
+																<xs:extension base="tns:StoreRequestResultDataRequestBaseOfAdditionalStoreRequestInformationEnvelope">
+																	<xs:sequence/>
+																</xs:extension>
+															</xs:complexContent>
+														</xs:complexType>
+														<xs:element name="StoreRequestResultDataRequest" nillable="true" type="tns:StoreRequestResultDataRequest"/>
+														<xs:complexType name="StoreRequestResultDataRequestBaseOfAdditionalStoreRequestInformationEnvelope">
+															<xs:annotation>
+																<xs:appinfo>
+																	<GenericType
+																		xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="StoreRequestResultDataRequestBaseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																		<GenericParameter Name="AdditionalStoreRequestInformationEnvelope" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts">
+																			<GenericParameter Name="IdeasConnectorServiceDataExchange" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/></GenericParameter>
+																		<GenericParameter Name="IdeasConnectorServiceDataExchange" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+																	</GenericType>
+																</xs:appinfo>
+															</xs:annotation>
+															<xs:sequence>
+																<xs:element name="RequestId" type="ser:guid"/>
+																<xs:element name="Typist" nillable="true" type="xs:string"/>
+																<xs:element name="CapturingDateTime" type="xs:dateTime"/>
+																<xs:element
+																	xmlns:q4="Sps.Utils.Ideas.ConnectorService.Contracts" name="AdditionalData" nillable="true" type="q4:AdditionalStoreRequestInformationEnvelope"/>
+																</xs:sequence>
+															</xs:complexType>
+															<xs:element name="StoreRequestResultDataRequestBaseOfAdditionalStoreRequestInformationEnvelope" nillable="true" type="tns:StoreRequestResultDataRequestBaseOfAdditionalStoreRequestInformationEnvelope"/>
+															<xs:complexType name="AdditionalStoreRequestInformationEnvelopeBaseOfIdeasConnectorServiceDataExchange">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<GenericType
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="AdditionalStoreRequestInformationEnvelopeBaseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																			<GenericParameter Name="IdeasConnectorServiceDataExchange" Namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"/>
+																		</GenericType>
+																	</xs:appinfo>
+																</xs:annotation>
+																<xs:sequence/>
+															</xs:complexType>
+															<xs:element name="AdditionalStoreRequestInformationEnvelopeBaseOfIdeasConnectorServiceDataExchange" nillable="true" type="tns:AdditionalStoreRequestInformationEnvelopeBaseOfIdeasConnectorServiceDataExchange"/>
+															<xs:complexType name="StoreRequestResultDataResponse">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<GenericType
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="StoreRequestResultDataResponse" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																			<GenericParameter Name="AdditionalStoreResponseInformationEnvelope" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts">
+																				<GenericParameter Name="AdditionalStoreResponseInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/></GenericParameter>
+																			<GenericParameter Name="AdditionalStoreResponseInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+																		</GenericType>
+																	</xs:appinfo>
+																</xs:annotation>
+																<xs:complexContent mixed="false">
+																	<xs:extension base="tns:StoreRequestResultDataResponseBaseOfAdditionalStoreResponseInformationEnvelope">
+																		<xs:sequence/>
+																	</xs:extension>
+																</xs:complexContent>
+															</xs:complexType>
+															<xs:element name="StoreRequestResultDataResponse" nillable="true" type="tns:StoreRequestResultDataResponse"/>
+															<xs:complexType name="StoreRequestResultDataResponseBaseOfAdditionalStoreResponseInformationEnvelope">
+																<xs:annotation>
+																	<xs:appinfo>
+																		<GenericType
+																			xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="StoreRequestResultDataResponseBaseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																			<GenericParameter Name="AdditionalStoreResponseInformationEnvelope" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts">
+																				<GenericParameter Name="AdditionalStoreResponseInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/></GenericParameter>
+																			<GenericParameter Name="AdditionalStoreResponseInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+																		</GenericType>
+																	</xs:appinfo>
+																</xs:annotation>
+																<xs:sequence>
+																	<xs:element minOccurs="0" name="Result" type="tns:ProcessingResults"/>
+																	<xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string"/>
+																	<xs:element
+																		xmlns:q5="Sps.Utils.Ideas.ConnectorService.Contracts" minOccurs="0" name="AdditionalInformation" nillable="true" type="q5:AdditionalStoreResponseInformationEnvelope"/>
+																	</xs:sequence>
+																</xs:complexType>
+																<xs:element name="StoreRequestResultDataResponseBaseOfAdditionalStoreResponseInformationEnvelope" nillable="true" type="tns:StoreRequestResultDataResponseBaseOfAdditionalStoreResponseInformationEnvelope"/>
+																<xs:simpleType name="ProcessingResults">
+																	<xs:restriction base="xs:string">
+																		<xs:enumeration value="Success"/>
+																		<xs:enumeration value="Failure"/>
+																		<xs:enumeration value="FailureDueToInvalidXmlData"/>
+																		<xs:enumeration value="FailureDueToIncompleteData"/>
+																	</xs:restriction>
+																</xs:simpleType>
+																<xs:element name="ProcessingResults" nillable="true" type="tns:ProcessingResults"/>
+																<xs:complexType name="AdditionalStoreResponseInformationEnvelopeBaseOfAdditionalStoreResponseInformation">
+																	<xs:annotation>
+																		<xs:appinfo>
+																			<GenericType
+																				xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="AdditionalStoreResponseInformationEnvelopeBaseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																				<GenericParameter Name="AdditionalStoreResponseInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+																			</GenericType>
+																		</xs:appinfo>
+																	</xs:annotation>
+																	<xs:sequence/>
+																</xs:complexType>
+																<xs:element name="AdditionalStoreResponseInformationEnvelopeBaseOfAdditionalStoreResponseInformation" nillable="true" type="tns:AdditionalStoreResponseInformationEnvelopeBaseOfAdditionalStoreResponseInformation"/>
+																<xs:complexType name="AdditionalStoreResponseInformationBase">
+																	<xs:sequence/>
+																</xs:complexType>
+																<xs:element name="AdditionalStoreResponseInformationBase" nillable="true" type="tns:AdditionalStoreResponseInformationBase"/>
+																<xs:complexType name="CommitMultipleRequestStoreCallsRequest">
+																	<xs:annotation>
+																		<xs:appinfo>
+																			<GenericType
+																				xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="CommitMultipleRequestStoreCallsRequest" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																				<GenericParameter Name="AdditionalCommitMultipleRequestStoreInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+																			</GenericType>
+																		</xs:appinfo>
+																	</xs:annotation>
+																	<xs:complexContent mixed="false">
+																		<xs:extension base="tns:CommitMultipleRequestStoreCallsRequestBase">
+																			<xs:sequence/>
+																		</xs:extension>
+																	</xs:complexContent>
+																</xs:complexType>
+																<xs:element name="CommitMultipleRequestStoreCallsRequest" nillable="true" type="tns:CommitMultipleRequestStoreCallsRequest"/>
+																<xs:complexType name="CommitMultipleRequestStoreCallsRequestBase">
+																	<xs:annotation>
+																		<xs:appinfo>
+																			<GenericType
+																				xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="CommitMultipleRequestStoreCallsRequestBase" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																				<GenericParameter Name="AdditionalCommitMultipleRequestStoreInformationEnvelope" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																					<GenericParameter Name="AdditionalCommitMultipleRequestStoreInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/></GenericParameter>
+																				<GenericParameter Name="AdditionalCommitMultipleRequestStoreInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+																			</GenericType>
+																		</xs:appinfo>
+																	</xs:annotation>
+																	<xs:sequence>
+																		<xs:element name="RequestId" type="ser:guid"/>
+																		<xs:element name="UniqueRegistrationId" type="ser:guid"/>
+																		<xs:element minOccurs="0" name="AdditionalInformation" nillable="true" type="tns:AdditionalCommitMultipleRequestStoreInformationEnvelope"/>
+																	</xs:sequence>
+																</xs:complexType>
+																<xs:element name="CommitMultipleRequestStoreCallsRequestBase" nillable="true" type="tns:CommitMultipleRequestStoreCallsRequestBase"/>
+																<xs:complexType name="AdditionalCommitMultipleRequestStoreInformationEnvelope">
+																	<xs:annotation>
+																		<xs:appinfo>
+																			<GenericType
+																				xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="AdditionalCommitMultipleRequestStoreInformationEnvelope" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																				<GenericParameter Name="AdditionalCommitMultipleRequestStoreInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+																			</GenericType>
+																		</xs:appinfo>
+																	</xs:annotation>
+																	<xs:complexContent mixed="false">
+																		<xs:extension base="tns:AdditionalCommitMultipleRequestStoreInformationEnvelopeBaseOfAdditionalCommitMultipleRequestStoreInformation">
+																			<xs:sequence>
+																				<xs:element
+																					xmlns:q6="Sps.Utils.Ideas.ConnectorService.Contracts" minOccurs="0" name="AdditionalRequestInformation" nillable="true" type="q6:AdditionalCommitMultipleRequestStoreInformation"/>
+																				</xs:sequence>
+																			</xs:extension>
+																		</xs:complexContent>
+																	</xs:complexType>
+																	<xs:element name="AdditionalCommitMultipleRequestStoreInformationEnvelope" nillable="true" type="tns:AdditionalCommitMultipleRequestStoreInformationEnvelope"/>
+																	<xs:complexType name="AdditionalCommitMultipleRequestStoreInformationEnvelopeBaseOfAdditionalCommitMultipleRequestStoreInformation">
+																		<xs:annotation>
+																			<xs:appinfo>
+																				<GenericType
+																					xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="AdditionalCommitMultipleRequestStoreInformationEnvelopeBaseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																					<GenericParameter Name="AdditionalCommitMultipleRequestStoreInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+																				</GenericType>
+																			</xs:appinfo>
+																		</xs:annotation>
+																		<xs:sequence/>
+																	</xs:complexType>
+																	<xs:element name="AdditionalCommitMultipleRequestStoreInformationEnvelopeBaseOfAdditionalCommitMultipleRequestStoreInformation" nillable="true" type="tns:AdditionalCommitMultipleRequestStoreInformationEnvelopeBaseOfAdditionalCommitMultipleRequestStoreInformation"/>
+																	<xs:complexType name="AdditionalCommitMultipleRequestStoreInformationBase">
+																		<xs:sequence/>
+																	</xs:complexType>
+																	<xs:element name="AdditionalCommitMultipleRequestStoreInformationBase" nillable="true" type="tns:AdditionalCommitMultipleRequestStoreInformationBase"/>
+																	<xs:complexType name="CommitMultipleRequestStoreCallsResponse">
+																		<xs:annotation>
+																			<xs:appinfo>
+																				<GenericType
+																					xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="CommitMultipleRequestStoreCallsResponse" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																					<GenericParameter Name="AdditionalCommitMultipleRequestResponseInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+																				</GenericType>
+																			</xs:appinfo>
+																		</xs:annotation>
+																		<xs:complexContent mixed="false">
+																			<xs:extension base="tns:CommitMultipleRequestStoreCallsResponseBase">
+																				<xs:sequence/>
+																			</xs:extension>
+																		</xs:complexContent>
+																	</xs:complexType>
+																	<xs:element name="CommitMultipleRequestStoreCallsResponse" nillable="true" type="tns:CommitMultipleRequestStoreCallsResponse"/>
+																	<xs:complexType name="CommitMultipleRequestStoreCallsResponseBase">
+																		<xs:annotation>
+																			<xs:appinfo>
+																				<GenericType
+																					xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="CommitMultipleRequestStoreCallsResponseBase" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																					<GenericParameter Name="AdditionalCommitMultipleRequestResponseInformationEnvelope" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts">
+																						<GenericParameter Name="AdditionalCommitMultipleRequestResponseInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/></GenericParameter>
+																					<GenericParameter Name="AdditionalCommitMultipleRequestResponseInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+																				</GenericType>
+																			</xs:appinfo>
+																		</xs:annotation>
+																		<xs:sequence>
+																			<xs:element name="Result" type="tns:ProcessingResults"/>
+																			<xs:element name="ErrorMessage" nillable="true" type="xs:string"/>
+																			<xs:element
+																				xmlns:q7="Sps.Utils.Ideas.ConnectorService.Contracts" minOccurs="0" name="AdditionalInformation" nillable="true" type="q7:AdditionalCommitMultipleRequestResponseInformationEnvelope"/>
+																			</xs:sequence>
+																		</xs:complexType>
+																		<xs:element name="CommitMultipleRequestStoreCallsResponseBase" nillable="true" type="tns:CommitMultipleRequestStoreCallsResponseBase"/>
+																		<xs:complexType name="AdditionalCommitMultipleRequestResponseInformationEnvelopeBaseOfAdditionalCommitMultipleRequestResponseInformation">
+																			<xs:annotation>
+																				<xs:appinfo>
+																					<GenericType
+																						xmlns="http://schemas.microsoft.com/2003/10/Serialization/" Name="AdditionalCommitMultipleRequestResponseInformationEnvelopeBaseOf{0}" Namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts">
+																						<GenericParameter Name="AdditionalCommitMultipleRequestResponseInformation" Namespace="Sps.Utils.Ideas.ConnectorService.Contracts"/>
+																					</GenericType>
+																				</xs:appinfo>
+																			</xs:annotation>
+																			<xs:sequence/>
+																		</xs:complexType>
+																		<xs:element name="AdditionalCommitMultipleRequestResponseInformationEnvelopeBaseOfAdditionalCommitMultipleRequestResponseInformation" nillable="true" type="tns:AdditionalCommitMultipleRequestResponseInformationEnvelopeBaseOfAdditionalCommitMultipleRequestResponseInformation"/>
+																		<xs:complexType name="AdditionalCommitMultipleRequestResponseInformationBase">
+																			<xs:sequence/>
+																		</xs:complexType>
+																		<xs:element name="AdditionalCommitMultipleRequestResponseInformationBase" nillable="true" type="tns:AdditionalCommitMultipleRequestResponseInformationBase"/>
+																	</xs:schema>
+																	<xs:schema
+																		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+																		xmlns:tns="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records"
+																		xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector.Records">
+																		<xs:import namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts"/>
+																		<xs:import namespace="http://schemas.datacontract.org/2004/07/System.Drawing"/>
+																		<xs:import namespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector"/>
+																		<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+																		<xs:complexType name="AdditionalFrameInformationEnvelope">
+																			<xs:complexContent mixed="false">
+																				<xs:extension
+																					xmlns:q1="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" base="q1:AdditionalFrameInformationEnvelopeBaseOfAdditionalFrameInformation">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="AdditionalFrameInformation" nillable="true" type="tns:AdditionalFrameInformation"/>
+																					</xs:sequence>
+																				</xs:extension>
+																			</xs:complexContent>
+																		</xs:complexType>
+																		<xs:element name="AdditionalFrameInformationEnvelope" nillable="true" type="tns:AdditionalFrameInformationEnvelope"/>
+																		<xs:complexType name="AdditionalFrameInformation">
+																			<xs:sequence>
+																				<xs:element name="Barcodes" nillable="true" type="tns:ArrayOfBarcode"/>
+																			</xs:sequence>
+																		</xs:complexType>
+																		<xs:element name="AdditionalFrameInformation" nillable="true" type="tns:AdditionalFrameInformation"/>
+																		<xs:complexType name="ArrayOfBarcode">
+																			<xs:sequence>
+																				<xs:element minOccurs="0" maxOccurs="unbounded" name="Barcode" nillable="true" type="tns:Barcode"/>
+																			</xs:sequence>
+																		</xs:complexType>
+																		<xs:element name="ArrayOfBarcode" nillable="true" type="tns:ArrayOfBarcode"/>
+																		<xs:complexType name="Barcode">
+																			<xs:sequence>
+																				<xs:element
+																					xmlns:q2="http://schemas.datacontract.org/2004/07/System.Drawing" name="Location" type="q2:Rectangle"/>
+																					<xs:element name="Type" nillable="true" type="xs:string"/>
+																					<xs:element name="RawValue" nillable="true" type="xs:string"/>
+																					<xs:element minOccurs="0" name="PossibleBarcodeInterpretations" nillable="true" type="tns:ArrayOfBarcodeInterpretation"/>
+																					<xs:element minOccurs="0" name="ExtendedInfo" nillable="true" type="xs:string"/>
+																				</xs:sequence>
+																			</xs:complexType>
+																			<xs:element name="Barcode" nillable="true" type="tns:Barcode"/>
+																			<xs:complexType name="ArrayOfBarcodeInterpretation">
+																				<xs:sequence>
+																					<xs:element minOccurs="0" maxOccurs="unbounded" name="BarcodeInterpretation" nillable="true" type="tns:BarcodeInterpretation"/>
+																				</xs:sequence>
+																			</xs:complexType>
+																			<xs:element name="ArrayOfBarcodeInterpretation" nillable="true" type="tns:ArrayOfBarcodeInterpretation"/>
+																			<xs:complexType name="BarcodeInterpretation">
+																				<xs:sequence>
+																					<xs:element
+																						xmlns:q3="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector" name="BarcodeType" type="q3:BarcodeType"/>
+																						<xs:element name="Fields" nillable="true" type="tns:ArrayOfBarcodeContentField"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="BarcodeInterpretation" nillable="true" type="tns:BarcodeInterpretation"/>
+																				<xs:complexType name="ArrayOfBarcodeContentField">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" maxOccurs="unbounded" name="BarcodeContentField" nillable="true" type="tns:BarcodeContentField"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="ArrayOfBarcodeContentField" nillable="true" type="tns:ArrayOfBarcodeContentField"/>
+																				<xs:complexType name="BarcodeContentField">
+																					<xs:sequence>
+																						<xs:element name="FieldName" nillable="true" type="xs:string"/>
+																						<xs:element name="Value" nillable="true" type="xs:string"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="BarcodeContentField" nillable="true" type="tns:BarcodeContentField"/>
+																				<xs:complexType name="AdditionalRequestInformationEnvelope">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="AdditionalRequestInformation" nillable="true" type="tns:AdditionalRequestInformation"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="AdditionalRequestInformationEnvelope" nillable="true" type="tns:AdditionalRequestInformationEnvelope"/>
+																				<xs:complexType name="AdditionalRequestInformation">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="DownloadDateTimeSps" nillable="true" type="xs:dateTime"/>
+																						<xs:element minOccurs="0" name="ScanDateTime" nillable="true" type="xs:dateTime"/>
+																						<xs:element minOccurs="0" name="ScanJobName" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="InboundChannel" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="TextId" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="Priority" type="xs:int"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="AdditionalRequestInformation" nillable="true" type="tns:AdditionalRequestInformation"/>
+																				<xs:complexType name="IdeasConnectorServiceDataExchange">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="CapturingMetaData" nillable="true" type="tns:CapturingMetaData"/>
+																						<xs:element minOccurs="0" name="Record" nillable="true" type="tns:RecordType"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="IdeasConnectorServiceDataExchange" nillable="true" type="tns:IdeasConnectorServiceDataExchange"/>
+																				<xs:complexType name="CapturingMetaData">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="RequestId" type="ser:guid"/>
+																						<xs:element minOccurs="0" name="FrameId" type="ser:guid"/>
+																						<xs:element minOccurs="0" name="UniqueRegistrationId" type="ser:guid"/>
+																						<xs:element minOccurs="0" name="Typist" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="TimeStamp" type="xs:dateTime"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="CapturingMetaData" nillable="true" type="tns:CapturingMetaData"/>
+																				<xs:complexType name="RecordType">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="ValidRecord" nillable="true" type="tns:ValidRecord"/>
+																						<xs:element minOccurs="0" name="InvalidImage" nillable="true" type="tns:InvalidImage"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="RecordType" nillable="true" type="tns:RecordType"/>
+																				<xs:complexType name="ValidRecord">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="BahnCardOrderData" nillable="true" type="tns:OrderData"/>
+																						<xs:element minOccurs="0" name="SystemLetter" nillable="true" type="tns:SystemLetter"/>
+																						<xs:element minOccurs="0" name="Photos" nillable="true" type="tns:ArrayOfPhotoData"/>
+																						<xs:element minOccurs="0" name="GeneralCorrespondence" nillable="true" type="tns:GlobalInformation"/>
+																						<xs:element minOccurs="0" name="Termination" nillable="true" type="tns:GlobalInformation"/>
+																						<xs:element minOccurs="0" name="Identifications" nillable="true" type="tns:ArrayOfGlobalInformation"/>
+																						<xs:element minOccurs="0" name="CardReturn" nillable="true" type="tns:CustomerInformation"/>
+																						<xs:element minOccurs="0" name="BahnBonus" nillable="true" type="tns:BahnBonus"/>
+																						<xs:element minOccurs="0" name="EPermission" nillable="true" type="tns:EPermission"/>
+																						<xs:element minOccurs="0" name="AwardCatalog" nillable="true" type="tns:AwardCatalog"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="ValidRecord" nillable="true" type="tns:ValidRecord"/>
+																				<xs:complexType name="OrderData">
+																					<xs:sequence>
+																						<xs:element name="DataMainCard" nillable="true" type="tns:PersonDataMainCard"/>
+																						<xs:element name="DataPartnerCard" nillable="true" type="tns:PartnerCardPersonData"/>
+																						<xs:element name="DataAdditionalCard" nillable="true" type="tns:ArrayOfAdditionalCardPersonData"/>
+																						<xs:element name="AdditionalInformation" nillable="true" type="tns:AdditionalInformation"/>
+																						<xs:element minOccurs="0" name="AdditionalService" nillable="true" type="tns:AdditionalService"/>
+																						<xs:element minOccurs="0" name="SalesCenterData" nillable="true" type="tns:SalesCenter"/>
+																						<xs:element minOccurs="0" name="BankData" nillable="true" type="tns:Bank"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="OrderData" nillable="true" type="tns:OrderData"/>
+																				<xs:complexType name="PersonDataMainCard">
+																					<xs:sequence>
+																						<xs:element name="MainCardDataType" type="tns:MainBahnCardType"/>
+																						<xs:element name="CheckBoxes" nillable="true" type="tns:MainCardCrossFields"/>
+																						<xs:element name="MainCardValidityBegin" nillable="true" type="xs:dateTime"/>
+																						<xs:element name="PreviousBahnCard" nillable="true" type="tns:BahnCard"/>
+																						<xs:element name="PersonDataDetails" nillable="true" type="tns:PersonDataDetailsType"/>
+																						<xs:element name="Address" nillable="true" type="tns:Address"/>
+																						<xs:element name="Contact" nillable="true" type="tns:Phone"/>
+																						<xs:element name="PhotoSection" nillable="true" type="tns:PhotoData"/>
+																						<xs:element minOccurs="0" name="BahnCardType" type="tns:BahnCardType"/>
+																						<xs:element minOccurs="0" name="ClassType" type="tns:ClassType"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="PersonDataMainCard" nillable="true" type="tns:PersonDataMainCard"/>
+																				<xs:simpleType name="MainBahnCardType">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="NormalBahnCard">
+																							<xs:annotation>
+																								<xs:appinfo>
+																									<EnumerationValue
+																										xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1
+																									</EnumerationValue>
+																								</xs:appinfo>
+																							</xs:annotation>
+																						</xs:enumeration>
+																						<xs:enumeration value="YouthBahnCard">
+																							<xs:annotation>
+																								<xs:appinfo>
+																									<EnumerationValue
+																										xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2
+																									</EnumerationValue>
+																								</xs:appinfo>
+																							</xs:annotation>
+																						</xs:enumeration>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="MainBahnCardType" nillable="true" type="tns:MainBahnCardType"/>
+																				<xs:complexType name="MainCardCrossFields">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="BahnCard_25_First_TravelClass_Without_Discount" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_25_First_TravelClass_With_Discount" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_25_Second_TravelClass_Without_Discount" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_25_Second_TravelClass_With_Discount" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_50_First_TravelClass_Without_Discount" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_50_First_TravelClass_With_Discount" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_50_Second_TravelClass_Without_Discount" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_50_Second_TravelClass_With_Discount" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_100_First_TravelClass_Without_Abo" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_100_First_TravelClass_With_Abo" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_100_Second_TravelClass_Without_Abo" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_100_Second_TravelClass_With_Abo" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_25_BUS_First_TravelClass" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_25_BUS_Second_TravelClass" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_50_BUS_First_TravelClass" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_50_BUS_Second_TravelClass" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_25_Beginner_First_TravelClass" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_25_Beginner_Second_TravelClass" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_25_Green_First_TravelClass" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BahnCard_25_Green_Second_TravelClass" type="xs:boolean"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="MainCardCrossFields" nillable="true" type="tns:MainCardCrossFields"/>
+																				<xs:complexType name="BahnCard">
+																					<xs:sequence>
+																						<xs:element name="BahnCardNumber" nillable="true" type="xs:string"/>
+																						<xs:element name="BahnCardNumberIsValid" type="tns:BahnCardNumberValid"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="BahnCard" nillable="true" type="tns:BahnCard"/>
+																				<xs:simpleType name="BahnCardNumberValid">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="NoBahnCardNumber"/>
+																						<xs:enumeration value="ValidBahnCardNumber"/>
+																						<xs:enumeration value="InvalidBahnCardNumber"/>
+																						<xs:enumeration value="NotReadableBahnCardNumber"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="BahnCardNumberValid" nillable="true" type="tns:BahnCardNumberValid"/>
+																				<xs:complexType name="PersonDataDetailsType">
+																					<xs:sequence>
+																						<xs:element name="Gender" nillable="true" type="tns:Gender"/>
+																						<xs:element name="Titel" nillable="true" type="tns:Title"/>
+																						<xs:element name="FirstName" nillable="true" type="xs:string"/>
+																						<xs:element name="LastName" nillable="true" type="xs:string"/>
+																						<xs:element name="BirthDate" nillable="true" type="xs:dateTime"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="PersonDataDetailsType" nillable="true" type="tns:PersonDataDetailsType"/>
+																				<xs:simpleType name="Gender">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="Male"/>
+																						<xs:enumeration value="Female"/>
+																						<xs:enumeration value="Unknown"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="Gender" nillable="true" type="tns:Gender"/>
+																				<xs:simpleType name="Title">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="Dr"/>
+																						<xs:enumeration value="DrDr"/>
+																						<xs:enumeration value="Prof"/>
+																						<xs:enumeration value="ProfDr"/>
+																						<xs:enumeration value="ProfDrDr"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="Title" nillable="true" type="tns:Title"/>
+																				<xs:complexType name="Address">
+																					<xs:sequence>
+																						<xs:element name="Street" nillable="true" type="xs:string"/>
+																						<xs:element name="HouseNumber" nillable="true" type="xs:string"/>
+																						<xs:element name="AdditionalAddress" nillable="true" type="xs:string"/>
+																						<xs:element name="Zip" nillable="true" type="xs:string"/>
+																						<xs:element name="City" nillable="true" type="xs:string"/>
+																						<xs:element name="CountryCode" nillable="true" type="tns:CountryCodeType"/>
+																						<xs:element name="CountryCodeSpecified" type="xs:boolean"/>
+																						<xs:element name="ValidByAddressCheck" type="tns:ValidByAddressCheck"/>
+																						<xs:element name="AddressDataHasBeenCorrected" nillable="true" type="xs:boolean"/>
+																						<xs:element name="AddressDataHasBeenCorrectedSpecified" type="xs:boolean"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="Address" nillable="true" type="tns:Address"/>
+																				<xs:simpleType name="CountryCodeType">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="ABW"/>
+																						<xs:enumeration value="AFG"/>
+																						<xs:enumeration value="AGO"/>
+																						<xs:enumeration value="AIA"/>
+																						<xs:enumeration value="ALB"/>
+																						<xs:enumeration value="AND"/>
+																						<xs:enumeration value="ANT"/>
+																						<xs:enumeration value="ARE"/>
+																						<xs:enumeration value="ARG"/>
+																						<xs:enumeration value="ARM"/>
+																						<xs:enumeration value="ASM"/>
+																						<xs:enumeration value="ATA"/>
+																						<xs:enumeration value="ATG"/>
+																						<xs:enumeration value="AUS"/>
+																						<xs:enumeration value="AUT"/>
+																						<xs:enumeration value="AZE"/>
+																						<xs:enumeration value="BDI"/>
+																						<xs:enumeration value="BEL"/>
+																						<xs:enumeration value="BEN"/>
+																						<xs:enumeration value="BES"/>
+																						<xs:enumeration value="BFA"/>
+																						<xs:enumeration value="BGD"/>
+																						<xs:enumeration value="BGR"/>
+																						<xs:enumeration value="BHR"/>
+																						<xs:enumeration value="BHS"/>
+																						<xs:enumeration value="BIH"/>
+																						<xs:enumeration value="BLM"/>
+																						<xs:enumeration value="BLR"/>
+																						<xs:enumeration value="BLZ"/>
+																						<xs:enumeration value="BMU"/>
+																						<xs:enumeration value="BOL"/>
+																						<xs:enumeration value="BRA"/>
+																						<xs:enumeration value="BRB"/>
+																						<xs:enumeration value="BRN"/>
+																						<xs:enumeration value="BTN"/>
+																						<xs:enumeration value="BWA"/>
+																						<xs:enumeration value="CAF"/>
+																						<xs:enumeration value="CAN"/>
+																						<xs:enumeration value="CCK"/>
+																						<xs:enumeration value="CHE"/>
+																						<xs:enumeration value="CHL"/>
+																						<xs:enumeration value="CHN"/>
+																						<xs:enumeration value="CIV"/>
+																						<xs:enumeration value="CMR"/>
+																						<xs:enumeration value="COD"/>
+																						<xs:enumeration value="COG"/>
+																						<xs:enumeration value="COK"/>
+																						<xs:enumeration value="COL"/>
+																						<xs:enumeration value="COM"/>
+																						<xs:enumeration value="CPV"/>
+																						<xs:enumeration value="CRI"/>
+																						<xs:enumeration value="CUB"/>
+																						<xs:enumeration value="CUW"/>
+																						<xs:enumeration value="CXR"/>
+																						<xs:enumeration value="CYM"/>
+																						<xs:enumeration value="CYP"/>
+																						<xs:enumeration value="CZE"/>
+																						<xs:enumeration value="DEU"/>
+																						<xs:enumeration value="DJI"/>
+																						<xs:enumeration value="DMA"/>
+																						<xs:enumeration value="DNK"/>
+																						<xs:enumeration value="DOM"/>
+																						<xs:enumeration value="DZA"/>
+																						<xs:enumeration value="ECU"/>
+																						<xs:enumeration value="EGY"/>
+																						<xs:enumeration value="ERI"/>
+																						<xs:enumeration value="ESH"/>
+																						<xs:enumeration value="ESP"/>
+																						<xs:enumeration value="EST"/>
+																						<xs:enumeration value="ETH"/>
+																						<xs:enumeration value="FIN"/>
+																						<xs:enumeration value="FJI"/>
+																						<xs:enumeration value="FLK"/>
+																						<xs:enumeration value="FRA"/>
+																						<xs:enumeration value="FRO"/>
+																						<xs:enumeration value="FSM"/>
+																						<xs:enumeration value="GAB"/>
+																						<xs:enumeration value="GBR"/>
+																						<xs:enumeration value="GEO"/>
+																						<xs:enumeration value="GGY"/>
+																						<xs:enumeration value="GHA"/>
+																						<xs:enumeration value="GIB"/>
+																						<xs:enumeration value="GIN"/>
+																						<xs:enumeration value="GLP"/>
+																						<xs:enumeration value="GMB"/>
+																						<xs:enumeration value="GNB"/>
+																						<xs:enumeration value="GNQ"/>
+																						<xs:enumeration value="GRC"/>
+																						<xs:enumeration value="GRD"/>
+																						<xs:enumeration value="GRL"/>
+																						<xs:enumeration value="GTM"/>
+																						<xs:enumeration value="GUF"/>
+																						<xs:enumeration value="GUM"/>
+																						<xs:enumeration value="GUY"/>
+																						<xs:enumeration value="HKG"/>
+																						<xs:enumeration value="HND"/>
+																						<xs:enumeration value="HMD"/>
+																						<xs:enumeration value="HRV"/>
+																						<xs:enumeration value="HTI"/>
+																						<xs:enumeration value="HUN"/>
+																						<xs:enumeration value="IDN"/>
+																						<xs:enumeration value="IND"/>
+																						<xs:enumeration value="IOT"/>
+																						<xs:enumeration value="IRL"/>
+																						<xs:enumeration value="IRN"/>
+																						<xs:enumeration value="IRQ"/>
+																						<xs:enumeration value="ISL"/>
+																						<xs:enumeration value="ISR"/>
+																						<xs:enumeration value="ITA"/>
+																						<xs:enumeration value="JAM"/>
+																						<xs:enumeration value="JOR"/>
+																						<xs:enumeration value="JPN"/>
+																						<xs:enumeration value="KAZ"/>
+																						<xs:enumeration value="KEN"/>
+																						<xs:enumeration value="KGZ"/>
+																						<xs:enumeration value="KHM"/>
+																						<xs:enumeration value="KIR"/>
+																						<xs:enumeration value="KNA"/>
+																						<xs:enumeration value="KOR"/>
+																						<xs:enumeration value="KWT"/>
+																						<xs:enumeration value="LAO"/>
+																						<xs:enumeration value="LBN"/>
+																						<xs:enumeration value="LBR"/>
+																						<xs:enumeration value="LBY"/>
+																						<xs:enumeration value="LCA"/>
+																						<xs:enumeration value="LIE"/>
+																						<xs:enumeration value="LKA"/>
+																						<xs:enumeration value="LSO"/>
+																						<xs:enumeration value="LTU"/>
+																						<xs:enumeration value="LUX"/>
+																						<xs:enumeration value="LVA"/>
+																						<xs:enumeration value="MAC"/>
+																						<xs:enumeration value="MAF"/>
+																						<xs:enumeration value="MAR"/>
+																						<xs:enumeration value="MCO"/>
+																						<xs:enumeration value="MDA"/>
+																						<xs:enumeration value="MDG"/>
+																						<xs:enumeration value="MDV"/>
+																						<xs:enumeration value="MEX"/>
+																						<xs:enumeration value="MHL"/>
+																						<xs:enumeration value="MKD"/>
+																						<xs:enumeration value="MLI"/>
+																						<xs:enumeration value="MLT"/>
+																						<xs:enumeration value="MMR"/>
+																						<xs:enumeration value="MNE"/>
+																						<xs:enumeration value="MNG"/>
+																						<xs:enumeration value="MNP"/>
+																						<xs:enumeration value="MOZ"/>
+																						<xs:enumeration value="MRT"/>
+																						<xs:enumeration value="MSR"/>
+																						<xs:enumeration value="MTQ"/>
+																						<xs:enumeration value="MUS"/>
+																						<xs:enumeration value="MWI"/>
+																						<xs:enumeration value="MYS"/>
+																						<xs:enumeration value="MYT"/>
+																						<xs:enumeration value="NAM"/>
+																						<xs:enumeration value="NCL"/>
+																						<xs:enumeration value="NER"/>
+																						<xs:enumeration value="NFK"/>
+																						<xs:enumeration value="NGA"/>
+																						<xs:enumeration value="NIC"/>
+																						<xs:enumeration value="NIU"/>
+																						<xs:enumeration value="NLD"/>
+																						<xs:enumeration value="NOR"/>
+																						<xs:enumeration value="NPL"/>
+																						<xs:enumeration value="NRU"/>
+																						<xs:enumeration value="NZL"/>
+																						<xs:enumeration value="OMN"/>
+																						<xs:enumeration value="PAK"/>
+																						<xs:enumeration value="PAN"/>
+																						<xs:enumeration value="PCN"/>
+																						<xs:enumeration value="PER"/>
+																						<xs:enumeration value="PHL"/>
+																						<xs:enumeration value="PLW"/>
+																						<xs:enumeration value="PNG"/>
+																						<xs:enumeration value="POL"/>
+																						<xs:enumeration value="PRI"/>
+																						<xs:enumeration value="PRK"/>
+																						<xs:enumeration value="PRT"/>
+																						<xs:enumeration value="PRY"/>
+																						<xs:enumeration value="PSE"/>
+																						<xs:enumeration value="PYF"/>
+																						<xs:enumeration value="QAT"/>
+																						<xs:enumeration value="REU"/>
+																						<xs:enumeration value="ROU"/>
+																						<xs:enumeration value="RUS"/>
+																						<xs:enumeration value="RWA"/>
+																						<xs:enumeration value="SAU"/>
+																						<xs:enumeration value="SDN"/>
+																						<xs:enumeration value="SEN"/>
+																						<xs:enumeration value="SGP"/>
+																						<xs:enumeration value="SGS"/>
+																						<xs:enumeration value="SHN"/>
+																						<xs:enumeration value="SLB"/>
+																						<xs:enumeration value="SLE"/>
+																						<xs:enumeration value="SLV"/>
+																						<xs:enumeration value="SMR"/>
+																						<xs:enumeration value="SOM"/>
+																						<xs:enumeration value="SPM"/>
+																						<xs:enumeration value="SRB"/>
+																						<xs:enumeration value="SSD"/>
+																						<xs:enumeration value="STP"/>
+																						<xs:enumeration value="SUR"/>
+																						<xs:enumeration value="SVK"/>
+																						<xs:enumeration value="SVN"/>
+																						<xs:enumeration value="SWE"/>
+																						<xs:enumeration value="SWZ"/>
+																						<xs:enumeration value="SXM"/>
+																						<xs:enumeration value="SYC"/>
+																						<xs:enumeration value="SYR"/>
+																						<xs:enumeration value="TCA"/>
+																						<xs:enumeration value="TCD"/>
+																						<xs:enumeration value="TGO"/>
+																						<xs:enumeration value="THA"/>
+																						<xs:enumeration value="TJK"/>
+																						<xs:enumeration value="TKL"/>
+																						<xs:enumeration value="TKM"/>
+																						<xs:enumeration value="TON"/>
+																						<xs:enumeration value="TTO"/>
+																						<xs:enumeration value="TUN"/>
+																						<xs:enumeration value="TUR"/>
+																						<xs:enumeration value="TUV"/>
+																						<xs:enumeration value="TWN"/>
+																						<xs:enumeration value="TZA"/>
+																						<xs:enumeration value="UGA"/>
+																						<xs:enumeration value="UKR"/>
+																						<xs:enumeration value="UMI"/>
+																						<xs:enumeration value="URY"/>
+																						<xs:enumeration value="USA"/>
+																						<xs:enumeration value="UZB"/>
+																						<xs:enumeration value="VAT"/>
+																						<xs:enumeration value="VCT"/>
+																						<xs:enumeration value="VEN"/>
+																						<xs:enumeration value="VGB"/>
+																						<xs:enumeration value="VIR"/>
+																						<xs:enumeration value="VNM"/>
+																						<xs:enumeration value="VUT"/>
+																						<xs:enumeration value="WLF"/>
+																						<xs:enumeration value="WSM"/>
+																						<xs:enumeration value="YEM"/>
+																						<xs:enumeration value="YUG"/>
+																						<xs:enumeration value="ZAF"/>
+																						<xs:enumeration value="ZMB"/>
+																						<xs:enumeration value="ZWE"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="CountryCodeType" nillable="true" type="tns:CountryCodeType"/>
+																				<xs:simpleType name="ValidByAddressCheck">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="NoAdressContained"/>
+																						<xs:enumeration value="NotValidatedByAddressCheckButManuallyConfirmed"/>
+																						<xs:enumeration value="ValidatedByAddressCheck"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="ValidByAddressCheck" nillable="true" type="tns:ValidByAddressCheck"/>
+																				<xs:complexType name="Phone">
+																					<xs:sequence>
+																						<xs:element name="PhoneNumberAreaCode" nillable="true" type="xs:string"/>
+																						<xs:element name="PhoneMainNumber" nillable="true" type="xs:string"/>
+																						<xs:element name="MailContact" nillable="true" type="tns:Contact"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="Phone" nillable="true" type="tns:Phone"/>
+																				<xs:complexType name="Contact">
+																					<xs:sequence>
+																						<xs:element name="Email" nillable="true" type="tns:Email"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="Contact" nillable="true" type="tns:Contact"/>
+																				<xs:complexType name="Email">
+																					<xs:sequence>
+																						<xs:element name="Address" nillable="true" type="xs:string"/>
+																						<xs:element name="AddressIsValid" nillable="true" type="tns:NullableBool"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="Email" nillable="true" type="tns:Email"/>
+																				<xs:simpleType name="NullableBool">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="True"/>
+																						<xs:enumeration value="False"/>
+																						<xs:enumeration value="FieldNotPresent"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="NullableBool" nillable="true" type="tns:NullableBool"/>
+																				<xs:complexType name="PhotoData">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:string"/>
+																						<xs:element name="PhotoStatus" type="tns:PhotoType"/>
+																						<xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:dateTime"/>
+																						<xs:element minOccurs="0" name="Position" nillable="true" type="tns:PhotoPosition"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="PhotoData" nillable="true" type="tns:PhotoData"/>
+																				<xs:simpleType name="PhotoType">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="ValidPhoto">
+																							<xs:annotation>
+																								<xs:appinfo>
+																									<EnumerationValue
+																										xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1
+																									</EnumerationValue>
+																								</xs:appinfo>
+																							</xs:annotation>
+																						</xs:enumeration>
+																						<xs:enumeration value="PhotoWithBadQuality">
+																							<xs:annotation>
+																								<xs:appinfo>
+																									<EnumerationValue
+																										xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2
+																									</EnumerationValue>
+																								</xs:appinfo>
+																							</xs:annotation>
+																						</xs:enumeration>
+																						<xs:enumeration value="NoPhoto">
+																							<xs:annotation>
+																								<xs:appinfo>
+																									<EnumerationValue
+																										xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0
+																									</EnumerationValue>
+																								</xs:appinfo>
+																							</xs:annotation>
+																						</xs:enumeration>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="PhotoType" nillable="true" type="tns:PhotoType"/>
+																				<xs:complexType name="PhotoPosition">
+																					<xs:sequence>
+																						<xs:element name="X_Coordinate_TopLeft" type="xs:int"/>
+																						<xs:element name="Y_Coordinate_TopLeft" type="xs:int"/>
+																						<xs:element name="X_Coordinate_LowerRight" type="xs:int"/>
+																						<xs:element name="Y_Coordinate_LowerRight" type="xs:int"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="PhotoPosition" nillable="true" type="tns:PhotoPosition"/>
+																				<xs:simpleType name="BahnCardType">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="BC25"/>
+																						<xs:enumeration value="BC50"/>
+																						<xs:enumeration value="BC100"/>
+																						<xs:enumeration value="BCB"/>
+																						<xs:enumeration value="BCJahresCARD"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="BahnCardType" nillable="true" type="tns:BahnCardType"/>
+																				<xs:simpleType name="ClassType">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="FirstClass">
+																							<xs:annotation>
+																								<xs:appinfo>
+																									<EnumerationValue
+																										xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1
+																									</EnumerationValue>
+																								</xs:appinfo>
+																							</xs:annotation>
+																						</xs:enumeration>
+																						<xs:enumeration value="SecondClass">
+																							<xs:annotation>
+																								<xs:appinfo>
+																									<EnumerationValue
+																										xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2
+																									</EnumerationValue>
+																								</xs:appinfo>
+																							</xs:annotation>
+																						</xs:enumeration>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="ClassType" nillable="true" type="tns:ClassType"/>
+																				<xs:complexType name="PartnerCardPersonData">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="CheckBoxes" nillable="true" type="tns:PartnerCardCrossFields"/>
+																						<xs:element minOccurs="0" name="PreviousBahnCard" nillable="true" type="tns:BahnCard"/>
+																						<xs:element minOccurs="0" name="PersonDetails" nillable="true" type="tns:PersonDataDetailsType"/>
+																						<xs:element minOccurs="0" name="Contact" nillable="true" type="tns:Contact"/>
+																						<xs:element minOccurs="0" name="PhotoSection" nillable="true" type="tns:PhotoData"/>
+																						<xs:element minOccurs="0" name="BahnCardType" type="tns:BahnCardType"/>
+																						<xs:element minOccurs="0" name="ClassType" type="tns:ClassType"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="PartnerCardPersonData" nillable="true" type="tns:PartnerCardPersonData"/>
+																				<xs:complexType name="PartnerCardCrossFields">
+																					<xs:sequence>
+																						<xs:element name="BahnCard_25_First_TravelClass" nillable="true" type="xs:boolean"/>
+																						<xs:element name="BahnCard_25_First_TravelClassSpecified" type="xs:boolean"/>
+																						<xs:element name="BahnCard_25_Second_TravelClass" nillable="true" type="xs:boolean"/>
+																						<xs:element name="BahnCard_25_Second_TravelClassSpecified" type="xs:boolean"/>
+																						<xs:element name="BahnCard_50_First_TravelClass" nillable="true" type="xs:boolean"/>
+																						<xs:element name="BahnCard_50_First_TravelClassSpecified" type="xs:boolean"/>
+																						<xs:element name="BahnCard_50_Second_TravelClass" nillable="true" type="xs:boolean"/>
+																						<xs:element name="BahnCard_50_Second_TravelClassSpecified" type="xs:boolean"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="PartnerCardCrossFields" nillable="true" type="tns:PartnerCardCrossFields"/>
+																				<xs:complexType name="ArrayOfAdditionalCardPersonData">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" maxOccurs="unbounded" name="AdditionalCardPersonData" nillable="true" type="tns:AdditionalCardPersonData"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="ArrayOfAdditionalCardPersonData" nillable="true" type="tns:ArrayOfAdditionalCardPersonData"/>
+																				<xs:complexType name="AdditionalCardPersonData">
+																					<xs:sequence>
+																						<xs:element name="IsFamiliyAdditionalCard" nillable="true" type="xs:boolean"/>
+																						<xs:element name="IsFamiliyAdditionalCardSpecified" type="xs:boolean"/>
+																						<xs:element name="IsChildAdditionalCard" nillable="true" type="xs:boolean"/>
+																						<xs:element name="IsChildAdditionalCardSpecified" type="xs:boolean"/>
+																						<xs:element name="FirstAdditionalCard_PersonDetails" nillable="true" type="tns:PersonDataType"/>
+																						<xs:element minOccurs="0" name="SecondAdditionalCard_PersonDetails" nillable="true" type="tns:PersonDataType"/>
+																						<xs:element minOccurs="0" name="BahnCardType" type="tns:BahnCardType"/>
+																						<xs:element minOccurs="0" name="ClassType" type="tns:ClassType"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="AdditionalCardPersonData" nillable="true" type="tns:AdditionalCardPersonData"/>
+																				<xs:complexType name="PersonDataType">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="PreviousBahnCard" nillable="true" type="tns:BahnCard"/>
+																						<xs:element minOccurs="0" name="Gender" nillable="true" type="tns:Gender"/>
+																						<xs:element minOccurs="0" name="GenderSpecified" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:dateTime"/>
+																						<xs:element minOccurs="0" name="BirthDateSpecified" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="EMail" nillable="true" type="tns:Email"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="PersonDataType" nillable="true" type="tns:PersonDataType"/>
+																				<xs:complexType name="AdditionalInformation">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="NewsletterAgreement" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="RegistrationBahnBonus" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="Signature" nillable="true" type="tns:SignatureType"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="AdditionalInformation" nillable="true" type="tns:AdditionalInformation"/>
+																				<xs:complexType name="SignatureType">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="SignatureIsPresent" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="DateOfSignatureIsPresent" type="xs:boolean"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="SignatureType" nillable="true" type="tns:SignatureType"/>
+																				<xs:complexType name="AdditionalService">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="DriverLicense" nillable="true" type="tns:DriverLicence"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="AdditionalService" nillable="true" type="tns:AdditionalService"/>
+																				<xs:complexType name="DriverLicence">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="IssueDate" nillable="true" type="xs:dateTime"/>
+																						<xs:element minOccurs="0" name="IssueDateSpecified" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="Authority" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="Number" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="DriverLicenceHasDate" nillable="true" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="DriverLicenceHasDateSpecified" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="DriverLicenceHasSignature" nillable="true" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="DriverLicenceHasSignatureSpecified" type="xs:boolean"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="DriverLicence" nillable="true" type="tns:DriverLicence"/>
+																				<xs:complexType name="SalesCenter">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="IssueDateInterimBC" nillable="true" type="xs:dateTime"/>
+																						<xs:element minOccurs="0" name="InterimBCNumber" nillable="true" type="tns:ArrayOfInterimCardNumberInformation"/>
+																						<xs:element minOccurs="0" name="HasStamp" nillable="true" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="ValidityBeginBahnCard" nillable="true" type="xs:dateTime"/>
+																						<xs:element minOccurs="0" name="BmisCustomerNumber" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="AgentId" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="OutletCenterNumber" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="LimitedAuthorizationReducedPriceBahncard" nillable="true" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="LimitedAuthorizationPartnerOrAdditionalBahncard" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="FirstChildInterimCardNumber" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="SecondChildInterimCardNumber" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="SpouseInterimCardNumber" nillable="true" type="xs:string"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="SalesCenter" nillable="true" type="tns:SalesCenter"/>
+																				<xs:complexType name="ArrayOfInterimCardNumberInformation">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" maxOccurs="unbounded" name="InterimCardNumberInformation" nillable="true" type="tns:InterimCardNumberInformation"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="ArrayOfInterimCardNumberInformation" nillable="true" type="tns:ArrayOfInterimCardNumberInformation"/>
+																				<xs:complexType name="InterimCardNumberInformation">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="InterimCardNumberOrderDataSection" type="tns:OrderDataSectionType"/>
+																						<xs:element minOccurs="0" name="InterimCardNumber" nillable="true" type="xs:string"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="InterimCardNumberInformation" nillable="true" type="tns:InterimCardNumberInformation"/>
+																				<xs:simpleType name="OrderDataSectionType">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="MainCard"/>
+																						<xs:enumeration value="PartnerCard"/>
+																						<xs:enumeration value="FirstAdditionalCard"/>
+																						<xs:enumeration value="SecondAdditionalCard"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="OrderDataSectionType" nillable="true" type="tns:OrderDataSectionType"/>
+																				<xs:complexType name="Bank">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="AccountNumber" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="BankCode" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="Location" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="BankCountry" type="tns:CountryCodeType"/>
+																						<xs:element minOccurs="0" name="Name" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="AccountOwnerFirstName" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="AccountOwnerLastName" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="AccountOwnerAddress" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="DirectDebitPaymentHasDate" type="tns:NullableBoolean"/>
+																						<xs:element minOccurs="0" name="DirectDebitPaymentHasSignature" type="tns:NullableBoolean"/>
+																						<xs:element minOccurs="0" name="IBAN" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="BIC" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="BankDataHasBeenCorrected" type="tns:NullableBoolean"/>
+																						<xs:element minOccurs="0" name="BankIsValid" type="tns:NullableBoolean"/>
+																						<xs:element minOccurs="0" name="TelephoneNumber" nillable="true" type="xs:string"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="Bank" nillable="true" type="tns:Bank"/>
+																				<xs:simpleType name="NullableBoolean">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="true"/>
+																						<xs:enumeration value="false"/>
+																						<xs:enumeration value="null"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="NullableBoolean" nillable="true" type="tns:NullableBoolean"/>
+																				<xs:complexType name="SystemLetter">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="MainInformation" nillable="true" type="tns:GlobalInformation"/>
+																						<xs:element minOccurs="0" name="PersonDetails" nillable="true" type="tns:ArrayOfPersonDataDetailsType"/>
+																						<xs:element minOccurs="0" name="HasSignatureMainCard" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="BMISNumber" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="BankInformation" nillable="true" type="tns:Bank"/>
+																						<xs:element minOccurs="0" name="SystemLetterInformation" nillable="true" type="tns:SystemLetterInfo"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="SystemLetter" nillable="true" type="tns:SystemLetter"/>
+																				<xs:complexType name="GlobalInformation">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="CustomerInformation" nillable="true" type="tns:CustomerInformation"/>
+																						<xs:element minOccurs="0" name="Authorization" nillable="true" type="tns:AuthorizationTypeInformation"/>
+																						<xs:element minOccurs="0" name="HasMixRequest" type="xs:boolean"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="GlobalInformation" nillable="true" type="tns:GlobalInformation"/>
+																				<xs:complexType name="CustomerInformation">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="BahnCardInformation" nillable="true" type="tns:BahnCardSequ"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="CustomerInformation" nillable="true" type="tns:CustomerInformation"/>
+																				<xs:complexType name="BahnCardSequ">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="BahnCardNumber" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="BahnCardNumberIsValid" type="tns:BahnCardNumberValid"/>
+																						<xs:element minOccurs="0" name="BahnCardNumberIsValidSpecified" type="xs:boolean"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="BahnCardSequ" nillable="true" type="tns:BahnCardSequ"/>
+																				<xs:complexType name="AuthorizationTypeInformation">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="HasAuthorizationForRebatte" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="HasAuthorizationForJournalist" type="xs:boolean"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="AuthorizationTypeInformation" nillable="true" type="tns:AuthorizationTypeInformation"/>
+																				<xs:complexType name="ArrayOfPersonDataDetailsType">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" maxOccurs="unbounded" name="PersonDataDetailsType" nillable="true" type="tns:PersonDataDetailsType"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="ArrayOfPersonDataDetailsType" nillable="true" type="tns:ArrayOfPersonDataDetailsType"/>
+																				<xs:complexType name="SystemLetterInfo">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="HasSignature" type="xs:boolean"/>
+																						<xs:element minOccurs="0" name="HasSignatureDate" type="xs:boolean"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="SystemLetterInfo" nillable="true" type="tns:SystemLetterInfo"/>
+																				<xs:complexType name="ArrayOfPhotoData">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" maxOccurs="unbounded" name="PhotoData" nillable="true" type="tns:PhotoData"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="ArrayOfPhotoData" nillable="true" type="tns:ArrayOfPhotoData"/>
+																				<xs:complexType name="ArrayOfGlobalInformation">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" maxOccurs="unbounded" name="GlobalInformation" nillable="true" type="tns:GlobalInformation"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="ArrayOfGlobalInformation" nillable="true" type="tns:ArrayOfGlobalInformation"/>
+																				<xs:complexType name="BahnBonus">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="BahnCardNumber" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="Birthday" nillable="true" type="xs:dateTime"/>
+																						<xs:element name="HasSignature" type="xs:boolean"/>
+																						<xs:element name="IsApprovalGiven" type="xs:boolean"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="BahnBonus" nillable="true" type="tns:BahnBonus"/>
+																				<xs:complexType name="EPermission">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="Email" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="BahnCardNumber" nillable="true" type="xs:string"/>
+																						<xs:element minOccurs="0" name="Birthday" nillable="true" type="xs:dateTime"/>
+																						<xs:element name="HasSignature" type="xs:boolean"/>
+																						<xs:element name="IsApprovalGiven" type="xs:boolean"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="EPermission" nillable="true" type="tns:EPermission"/>
+																				<xs:complexType name="AwardCatalog">
+																					<xs:sequence>
+																						<xs:element name="HasSignature" type="xs:boolean"/>
+																						<xs:element name="IsApprovalGiven" type="xs:boolean"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="AwardCatalog" nillable="true" type="tns:AwardCatalog"/>
+																				<xs:complexType name="InvalidImage">
+																					<xs:sequence>
+																						<xs:element minOccurs="0" name="Reason" type="tns:InvalidImageReason"/>
+																						<xs:element minOccurs="0" name="Annotation" nillable="true" type="xs:string"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="InvalidImage" nillable="true" type="tns:InvalidImage"/>
+																				<xs:simpleType name="InvalidImageReason">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="BadScan"/>
+																						<xs:enumeration value="EmptyImage"/>
+																						<xs:enumeration value="UnknownForm"/>
+																						<xs:enumeration value="WrongProject"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="InvalidImageReason" nillable="true" type="tns:InvalidImageReason"/>
+																			</xs:schema>
+																			<xs:schema
+																				xmlns:xs="http://www.w3.org/2001/XMLSchema"
+																				xmlns:tns="http://schemas.datacontract.org/2004/07/System.Drawing" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System.Drawing">
+																				<xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/"/>
+																				<xs:complexType name="Rectangle">
+																					<xs:annotation>
+																						<xs:appinfo>
+																							<IsValueType
+																								xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true
+																							</IsValueType>
+																						</xs:appinfo>
+																					</xs:annotation>
+																					<xs:sequence>
+																						<xs:element name="height" type="xs:int"/>
+																						<xs:element name="width" type="xs:int"/>
+																						<xs:element name="x" type="xs:int"/>
+																						<xs:element name="y" type="xs:int"/>
+																					</xs:sequence>
+																				</xs:complexType>
+																				<xs:element name="Rectangle" nillable="true" type="tns:Rectangle"/>
+																			</xs:schema>
+																			<xs:schema
+																				xmlns:xs="http://www.w3.org/2001/XMLSchema"
+																				xmlns:tns="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/BahnCard.IdeasConnector">
+																				<xs:simpleType name="BarcodeType">
+																					<xs:restriction base="xs:string">
+																						<xs:enumeration value="Unknown"/>
+																						<xs:enumeration value="DocumentSeparator"/>
+																						<xs:enumeration value="OrderManagementForm"/>
+																						<xs:enumeration value="IdentificationMarking"/>
+																						<xs:enumeration value="SystemLetter"/>
+																						<xs:enumeration value="ReturnLetter"/>
+																						<xs:enumeration value="ResponseBahnBonusNotPersonalized"/>
+																						<xs:enumeration value="ResponseBahnBonusPersonalized"/>
+																						<xs:enumeration value="ResponsePersonalized"/>
+																					</xs:restriction>
+																				</xs:simpleType>
+																				<xs:element name="BarcodeType" nillable="true" type="tns:BarcodeType"/>
+																			</xs:schema>
+																			<xs:schema
+																				xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="BahnCard.IdeasConnector.Contracts">
+																				<xs:import namespace="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts"/>
+																				<xs:element name="GetRequestInformationXml">
+																					<xs:complexType>
+																						<xs:sequence>
+																							<xs:element minOccurs="0" name="requestId" nillable="true" type="xs:string"/>
+																						</xs:sequence>
+																					</xs:complexType>
+																				</xs:element>
+																				<xs:element name="GetRequestInformationXmlResponse">
+																					<xs:complexType>
+																						<xs:sequence>
+																							<xs:element
+																								xmlns:q1="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" minOccurs="0" name="GetRequestInformationXmlResult" nillable="true" type="q1:GetRequestInformationResponse"/>
+																							</xs:sequence>
+																						</xs:complexType>
+																					</xs:element>
+																					<xs:element name="GetRequestInformationJson">
+																						<xs:complexType>
+																							<xs:sequence>
+																								<xs:element minOccurs="0" name="requestId" nillable="true" type="xs:string"/>
+																							</xs:sequence>
+																						</xs:complexType>
+																					</xs:element>
+																					<xs:element name="GetRequestInformationJsonResponse">
+																						<xs:complexType>
+																							<xs:sequence>
+																								<xs:element
+																									xmlns:q2="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" minOccurs="0" name="GetRequestInformationJsonResult" nillable="true" type="q2:GetRequestInformationResponse"/>
+																								</xs:sequence>
+																							</xs:complexType>
+																						</xs:element>
+																					</xs:schema>
+																				</wsdl:types>
+																				<wsdl:message name="BahnCardConnectorService_GetRequestInformation_InputMessage">
+																					<wsdl:part
+																						xmlns:q1="Sps.Utils.Ideas.ConnectorService.Contracts" name="parameters" element="q1:GetRequestInformation"/>
+																					</wsdl:message>
+																					<wsdl:message name="BahnCardConnectorService_GetRequestInformation_OutputMessage">
+																						<wsdl:part
+																							xmlns:q2="Sps.Utils.Ideas.ConnectorService.Contracts" name="parameters" element="q2:GetRequestInformationResponse"/>
+																						</wsdl:message>
+																						<wsdl:message name="BahnCardConnectorService_GetRequestInformation_ServiceFaultFault_FaultMessage">
+																							<wsdl:part
+																								xmlns:q3="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" name="detail" element="q3:ServiceFault"/>
+																							</wsdl:message>
+																							<wsdl:message name="BahnCardConnectorService_StoreRequestResultData_InputMessage">
+																								<wsdl:part
+																									xmlns:q4="Sps.Utils.Ideas.ConnectorService.Contracts" name="parameters" element="q4:StoreRequestResultData"/>
+																								</wsdl:message>
+																								<wsdl:message name="BahnCardConnectorService_StoreRequestResultData_OutputMessage">
+																									<wsdl:part
+																										xmlns:q5="Sps.Utils.Ideas.ConnectorService.Contracts" name="parameters" element="q5:StoreRequestResultDataResponse"/>
+																									</wsdl:message>
+																									<wsdl:message name="BahnCardConnectorService_StoreRequestResultData_ServiceFaultFault_FaultMessage">
+																										<wsdl:part
+																											xmlns:q6="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" name="detail" element="q6:ServiceFault"/>
+																										</wsdl:message>
+																										<wsdl:message name="BahnCardConnectorService_CommitMultipleRequestStoreCalls_InputMessage">
+																											<wsdl:part
+																												xmlns:q7="Sps.Utils.Ideas.ConnectorService.Contracts" name="parameters" element="q7:CommitMultipleRequestStoreCalls"/>
+																											</wsdl:message>
+																											<wsdl:message name="BahnCardConnectorService_CommitMultipleRequestStoreCalls_OutputMessage">
+																												<wsdl:part
+																													xmlns:q8="Sps.Utils.Ideas.ConnectorService.Contracts" name="parameters" element="q8:CommitMultipleRequestStoreCallsResponse"/>
+																												</wsdl:message>
+																												<wsdl:message name="BahnCardConnectorService_CommitMultipleRequestStoreCalls_ServiceFaultFault_FaultMessage">
+																													<wsdl:part
+																														xmlns:q9="http://schemas.datacontract.org/2004/07/Sps.Utils.Ideas.ConnectorService.Contracts" name="detail" element="q9:ServiceFault"/>
+																													</wsdl:message>
+																													<wsdl:message name="BahnCardConnectorService_GetRequestInformationXml_InputMessage">
+																														<wsdl:part name="parameters" element="tns:GetRequestInformationXml"/>
+																													</wsdl:message>
+																													<wsdl:message name="BahnCardConnectorService_GetRequestInformationXml_OutputMessage">
+																														<wsdl:part name="parameters" element="tns:GetRequestInformationXmlResponse"/>
+																													</wsdl:message>
+																													<wsdl:message name="BahnCardConnectorService_GetRequestInformationJson_InputMessage">
+																														<wsdl:part name="parameters" element="tns:GetRequestInformationJson"/>
+																													</wsdl:message>
+																													<wsdl:message name="BahnCardConnectorService_GetRequestInformationJson_OutputMessage">
+																														<wsdl:part name="parameters" element="tns:GetRequestInformationJsonResponse"/>
+																													</wsdl:message>
+																													<wsdl:portType name="BahnCardConnectorService">
+																														<wsdl:operation name="GetRequestInformation">
+																															<wsdl:input wsaw:Action="Sps.Utils.Ideas.ConnectorService.Contracts/IdeasConnectorService/GetRequestInformation" message="tns:BahnCardConnectorService_GetRequestInformation_InputMessage"/>
+																															<wsdl:output wsaw:Action="Sps.Utils.Ideas.ConnectorService.Contracts/IdeasConnectorService/GetRequestInformationResponse" message="tns:BahnCardConnectorService_GetRequestInformation_OutputMessage"/>
+																															<wsdl:fault wsaw:Action="Sps.Utils.Ideas.ConnectorService.Contracts/IdeasConnectorService/GetRequestInformationServiceFaultFault" name="ServiceFaultFault" message="tns:BahnCardConnectorService_GetRequestInformation_ServiceFaultFault_FaultMessage"/>
+																														</wsdl:operation>
+																														<wsdl:operation name="StoreRequestResultData">
+																															<wsdl:input wsaw:Action="Sps.Utils.Ideas.ConnectorService.Contracts/IdeasConnectorService/StoreRequestResultData" message="tns:BahnCardConnectorService_StoreRequestResultData_InputMessage"/>
+																															<wsdl:output wsaw:Action="Sps.Utils.Ideas.ConnectorService.Contracts/IdeasConnectorService/StoreRequestResultDataResponse" message="tns:BahnCardConnectorService_StoreRequestResultData_OutputMessage"/>
+																															<wsdl:fault wsaw:Action="Sps.Utils.Ideas.ConnectorService.Contracts/IdeasConnectorService/StoreRequestResultDataServiceFaultFault" name="ServiceFaultFault" message="tns:BahnCardConnectorService_StoreRequestResultData_ServiceFaultFault_FaultMessage"/>
+																														</wsdl:operation>
+																														<wsdl:operation name="CommitMultipleRequestStoreCalls">
+																															<wsdl:input wsaw:Action="Sps.Utils.Ideas.ConnectorService.Contracts/IdeasConnectorService/CommitMultipleRequestStoreCalls" message="tns:BahnCardConnectorService_CommitMultipleRequestStoreCalls_InputMessage"/>
+																															<wsdl:output wsaw:Action="Sps.Utils.Ideas.ConnectorService.Contracts/IdeasConnectorService/CommitMultipleRequestStoreCallsResponse" message="tns:BahnCardConnectorService_CommitMultipleRequestStoreCalls_OutputMessage"/>
+																															<wsdl:fault wsaw:Action="Sps.Utils.Ideas.ConnectorService.Contracts/IdeasConnectorService/CommitMultipleRequestStoreCallsServiceFaultFault" name="ServiceFaultFault" message="tns:BahnCardConnectorService_CommitMultipleRequestStoreCalls_ServiceFaultFault_FaultMessage"/>
+																														</wsdl:operation>
+																														<wsdl:operation name="GetRequestInformationXml">
+																															<wsdl:input wsaw:Action="BahnCard.IdeasConnector.Contracts/BahnCardConnectorService/GetRequestInformationXml" message="tns:BahnCardConnectorService_GetRequestInformationXml_InputMessage"/>
+																															<wsdl:output wsaw:Action="BahnCard.IdeasConnector.Contracts/BahnCardConnectorService/GetRequestInformationXmlResponse" message="tns:BahnCardConnectorService_GetRequestInformationXml_OutputMessage"/>
+																														</wsdl:operation>
+																														<wsdl:operation name="GetRequestInformationJson">
+																															<wsdl:input wsaw:Action="BahnCard.IdeasConnector.Contracts/BahnCardConnectorService/GetRequestInformationJson" message="tns:BahnCardConnectorService_GetRequestInformationJson_InputMessage"/>
+																															<wsdl:output wsaw:Action="BahnCard.IdeasConnector.Contracts/BahnCardConnectorService/GetRequestInformationJsonResponse" message="tns:BahnCardConnectorService_GetRequestInformationJson_OutputMessage"/>
+																														</wsdl:operation>
+																													</wsdl:portType>
+																													<wsdl:binding name="WSHttpBinding_BahnCardConnectorService" type="tns:BahnCardConnectorService">
+																														<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_policy"/>
+																														<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+																														<wsdl:operation name="GetRequestInformation">
+																															<soap12:operation soapAction="Sps.Utils.Ideas.ConnectorService.Contracts/IdeasConnectorService/GetRequestInformation" style="document"/>
+																															<wsdl:input>
+																																<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_GetRequestInformation_Input_policy"/>
+																																<soap12:body use="literal"/>
+																															</wsdl:input>
+																															<wsdl:output>
+																																<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_GetRequestInformation_output_policy"/>
+																																<soap12:body use="literal"/>
+																															</wsdl:output>
+																															<wsdl:fault name="ServiceFaultFault">
+																																<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_GetRequestInformation_ServiceFaultFault_Fault"/>
+																																<soap12:fault use="literal" name="ServiceFaultFault" namespace=""/>
+																															</wsdl:fault>
+																														</wsdl:operation>
+																														<wsdl:operation name="StoreRequestResultData">
+																															<soap12:operation soapAction="Sps.Utils.Ideas.ConnectorService.Contracts/IdeasConnectorService/StoreRequestResultData" style="document"/>
+																															<wsdl:input>
+																																<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_StoreRequestResultData_Input_policy"/>
+																																<soap12:body use="literal"/>
+																															</wsdl:input>
+																															<wsdl:output>
+																																<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_StoreRequestResultData_output_policy"/>
+																																<soap12:body use="literal"/>
+																															</wsdl:output>
+																															<wsdl:fault name="ServiceFaultFault">
+																																<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_StoreRequestResultData_ServiceFaultFault_Fault"/>
+																																<soap12:fault use="literal" name="ServiceFaultFault" namespace=""/>
+																															</wsdl:fault>
+																														</wsdl:operation>
+																														<wsdl:operation name="CommitMultipleRequestStoreCalls">
+																															<soap12:operation soapAction="Sps.Utils.Ideas.ConnectorService.Contracts/IdeasConnectorService/CommitMultipleRequestStoreCalls" style="document"/>
+																															<wsdl:input>
+																																<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_CommitMultipleRequestStoreCalls_Input_policy"/>
+																																<soap12:body use="literal"/>
+																															</wsdl:input>
+																															<wsdl:output>
+																																<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_CommitMultipleRequestStoreCalls_output_policy"/>
+																																<soap12:body use="literal"/>
+																															</wsdl:output>
+																															<wsdl:fault name="ServiceFaultFault">
+																																<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_CommitMultipleRequestStoreCalls_ServiceFaultFault_Fault"/>
+																																<soap12:fault use="literal" name="ServiceFaultFault" namespace=""/>
+																															</wsdl:fault>
+																														</wsdl:operation>
+																														<wsdl:operation name="GetRequestInformationXml">
+																															<soap12:operation soapAction="BahnCard.IdeasConnector.Contracts/BahnCardConnectorService/GetRequestInformationXml" style="document"/>
+																															<wsdl:input>
+																																<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_GetRequestInformationXml_Input_policy"/>
+																																<soap12:body use="literal"/>
+																															</wsdl:input>
+																															<wsdl:output>
+																																<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_GetRequestInformationXml_output_policy"/>
+																																<soap12:body use="literal"/>
+																															</wsdl:output>
+																														</wsdl:operation>
+																														<wsdl:operation name="GetRequestInformationJson">
+																															<soap12:operation soapAction="BahnCard.IdeasConnector.Contracts/BahnCardConnectorService/GetRequestInformationJson" style="document"/>
+																															<wsdl:input>
+																																<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_GetRequestInformationJson_Input_policy"/>
+																																<soap12:body use="literal"/>
+																															</wsdl:input>
+																															<wsdl:output>
+																																<wsp:PolicyReference URI="#WSHttpBinding_BahnCardConnectorService_GetRequestInformationJson_output_policy"/>
+																																<soap12:body use="literal"/>
+																															</wsdl:output>
+																														</wsdl:operation>
+																													</wsdl:binding>
+																													<wsdl:service name="ConnectorServiceBahnCard">
+																														<wsdl:port name="WSHttpBinding_BahnCardConnectorService" binding="tns:WSHttpBinding_BahnCardConnectorService">
+																															<soap12:address location="http://localhost:10587/BahnCardConnectorService.svc"/>
+																															<wsa10:EndpointReference>
+																																<wsa10:Address>
+http://localhost:10587/BahnCardConnectorService.svc
+</wsa10:Address>
+																																<Identity
+																																	xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+																																	<Upn>s-dbcard-inte@spsde.local</Upn>
+																																</Identity>
+																															</wsa10:EndpointReference>
+																														</wsdl:port>
+																													</wsdl:service>
+																												</wsdl:definitions>
